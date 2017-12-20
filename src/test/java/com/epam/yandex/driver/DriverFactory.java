@@ -18,7 +18,7 @@ public class DriverFactory {
 
     private DriverFactory() {}
 
-    public static  WebDriver getDriver(String browser) throws Exception { // add synchronized
+    public static  WebDriver getDriver(String browser) throws Exception {
         if (driver == null) {
             {
                 switch (browser) {
@@ -51,5 +51,4 @@ public class DriverFactory {
 
         return driver;
     }
-
 }

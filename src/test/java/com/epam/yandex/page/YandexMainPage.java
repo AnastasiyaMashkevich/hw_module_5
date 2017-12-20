@@ -5,9 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class YandexMainPage extends AbstractPage {
 
-    @FindBy(xpath = "*//div[@aria-label = 'Яндекс']")
+    @FindBy(xpath = "//div[@aria-label = 'Яндекс']")
     private WebElement logo;
 
     @FindBy (xpath = "//input[@placeholder = 'Логин']")
@@ -26,12 +28,14 @@ public class YandexMainPage extends AbstractPage {
     private WebElement searchButton;
 
 
+    @FindBy (xpath = "//div/a[contains(@data-metric, 'Выход')]")
+    private WebElement logOutBtn;
+
+
     public YandexMainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
-
-    public YandexMainPage (){}
 
     public void openPage () {
         driver.navigate().to(StaticParamClass.BASE_URL);
@@ -56,10 +60,16 @@ public class YandexMainPage extends AbstractPage {
         submit.click();
     }
 
-    public boolean isNeedPageOpen ()
-    {
+    public boolean isNeedPageOpen () {
         return logo.isDisplayed();
+    }
 
+    public void logOut() {
+        logOutBtn.click();
+    }
+
+    public boolean subminIsVisible() {
+        return submit.isDisplayed();
     }
 
 }

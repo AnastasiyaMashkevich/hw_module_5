@@ -20,7 +20,7 @@ public class YandexTest extends BaseTest {
     private YandexMailPage yandexMailPage;
 
     @BeforeTest(description = "Init pages")
-    public void setUp() throws Exception {
+    public void setUp() {
         System.out.println("Init pages");
         yandexMainPage = new YandexMainPage(driver);
         yandexMailPage = new YandexMailPage(driver);

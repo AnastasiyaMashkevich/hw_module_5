@@ -41,10 +41,6 @@ public class YandexMainPage extends BasePage {
         driver.navigate().to(ProjectConstant.BASE_URL);
     }
 
-    public void singInYandex () {
-        singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
-    }
-
     public void singIn (String login, String psw) {
         fieldLogin.sendKeys(login);
         fieldPassword.sendKeys(psw);

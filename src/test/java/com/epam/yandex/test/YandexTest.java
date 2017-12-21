@@ -26,17 +26,14 @@ public class YandexTest extends BaseTest {
         yandexMailPage = new YandexMailPage(driver);
     }
 
-    @Test()
-    public void singInTest () {
-        System.out.println("Sing In Test");
-        yandexMainPage.openPage();
-        yandexMainPage.singInYandex();
-        Assert.assertTrue(yandexMailPage.singInIsSuccess(), "Sing In did not execute.");
-    }
+    @Test
+    public void createAndSendNewEmailTest() {
+        System.out.println("Create And Send New Email Test");
 
-    @Test(dependsOnMethods = "singInTest", priority = 1)
-    public void createNewDraftEmailTest() {
-        System.out.println("Create New Draft Email Test");
+        yandexMainPage.openPage();
+        yandexMainPage.singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
+        Assert.assertTrue(yandexMailPage.singInIsSuccess(), "Sing In did not execute.");
+
         yandexMailPage.openNewFormLetter();
         yandexMailPage.setAddresseeEmail(ProjectConstant.ADDRESSEE);
         yandexMailPage.setEmailBody(BODY);
@@ -44,14 +41,11 @@ public class YandexTest extends BaseTest {
         yandexMailPage.clickCloseEmail();
         yandexMailPage.saveEmailAsDraft();
         yandexMailPage.openDraftFolder();
-        Assert.assertTrue(yandexMailPage.isEmailExist(SUBJECT),
-                "Nearly created draft email didn't save within Draft folder.");
-    }
 
-    @Test(dependsOnMethods = "createNewDraftEmailTest", priority = 2)
-    public void elementsFromDraftEmailTest() {
-        System.out.println("Elements From Draft Email Test");
         SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(yandexMailPage.isEmailExist(SUBJECT),
+                "Nearly created draft email didn't save within Draft folder.");
+
         yandexMailPage.clickOnEmail(FIRST_ELEMENT);
         softAssert.assertEquals(yandexMailPage.getAddresseeEmail(), ProjectConstant.ADDRESSEE,
                 String.format("Addressee email is not correct. Email should be as %s", ProjectConstant.ADDRESSEE));
@@ -59,28 +53,20 @@ public class YandexTest extends BaseTest {
                 String.format("Email SUBJECT is not correct. Subject should be as %s", SUBJECT));
         softAssert.assertEquals(yandexMailPage.getBodyText(), BODY,
                 String.format("Email BODY is not correct. Body should be as %s", BODY));
-        softAssert.assertAll();
-    }
 
-    @Test(dependsOnMethods = "elementsFromDraftEmailTest", priority = 3)
-    public void sendEmail() {
-        System.out.println("Elements From Draft Email Test");
-        SoftAssert softAssert = new SoftAssert();
         yandexMailPage.clickSendEmail();
         yandexMailPage.openDraftFolder();
         softAssert.assertFalse(yandexMailPage.isEmailExist(SUBJECT),
                 "Draft email exist within Draft folder after sending.");
+
         yandexMailPage.openSentFolder();
         softAssert.assertTrue(yandexMailPage.isEmailExist(SUBJECT),
                 "Sent email didn't save within Sent folder.");
-        softAssert.assertAll();
-    }
 
-    @Test(dependsOnMethods = "singInTest", priority = 4)
-    public void logOut() {
-        System.out.println("Log Out");
         yandexMailPage.openUserSettings();
         yandexMainPage.logOut();
-        Assert.assertTrue(yandexMainPage.subminIsVisible(), "Log Out did not execute.");
+        softAssert.assertTrue(yandexMainPage.subminIsVisible(), "Log Out did not execute.");
+
+        softAssert.assertAll();
     }
 }

@@ -1,19 +1,16 @@
 package com.epam.yandex.page;
 
+import com.epam.yandex.util.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Duration;
-import org.openqa.selenium.support.ui.Sleeper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class YandexMailPage extends AbstractPage{
+public class YandexMailPage extends BasePage {
 
     @FindBy (xpath = "//div[@class = 'mail-User-Name']")
     private WebElement userMail;
@@ -66,21 +63,21 @@ public class YandexMailPage extends AbstractPage{
     public YandexMailPage (WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
-
     }
 
+    @Override
     public void openPage () {
-        driver.navigate().to(StaticParamClass.BASE_URL);
+        driver.navigate().to(ProjectConstant.BASE_URL);
     }
 
     public boolean singInIsSuccess () {
-        WaitUtil.waitForElementIsDisplayed(driver, mailHeader, 20);
-        return userMail.getText().equals(StaticParamClass.LOGIN);
+        WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TIME_20_SEC);
+        return userMail.getText().equals(ProjectConstant.LOGIN);
     }
 
     public void openNewFormLetter() {
         createNew.click();
-        WaitUtil.waitForElementIsDisplayed(driver, sendEmailBtn, 20);
+        WaitUtil.waitForElementIsDisplayed(driver, sendEmailBtn, ProjectConstant.TIME_20_SEC);
     }
 
     public void setEmailSubject(String subject) {
@@ -96,11 +93,12 @@ public class YandexMailPage extends AbstractPage{
     }
 
     public void saveEmailAsDraft() {
-        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, 20);
+        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TIME_20_SEC);
         saveAsDraftBtn.click();
     }
 
     public List<String> getSubjectList() {
+        WaitUtil.sleep(3); // here we can't use some kind of WebDriver Wait because we receive StaleElementReferenceException. Only sleep helps here.
         return subjectList.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
@@ -109,7 +107,7 @@ public class YandexMailPage extends AbstractPage{
     }
 
     public String getEmailSubject() {
-        return emailSubject.getAttribute("value");
+        return emailSubject.getAttribute(ProjectConstant.ATTRIBUTE_VALUE);
     }
 
     public String getBodyText() {
@@ -137,11 +135,6 @@ public class YandexMailPage extends AbstractPage{
     }
 
     public boolean isEmailExist(String query) {
-        try {
-            Sleeper.SYSTEM_SLEEPER.sleep(new Duration(10, TimeUnit.SECONDS));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return getSubjectList().contains(query);
     }
 
@@ -149,5 +142,17 @@ public class YandexMailPage extends AbstractPage{
         userMail.click();
     }
 
+    public void waitForElementsSize(int size) {
+        WaitUtil.waitForElementsSizeAppear(driver, subjectList, size, ProjectConstant.TIME_20_SEC );
+    }
 
+    public int getDraftEmailNumber() {
+        openDraftFolder();
+        return getSubjectList().size();
+    }
+
+    public int getSentEmailNumber() {
+        openSentFolder();
+        return getSubjectList().size();
+    }
 }

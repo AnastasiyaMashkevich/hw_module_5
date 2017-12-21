@@ -1,21 +1,20 @@
 package com.epam.yandex.page;
 
+import com.epam.yandex.util.ProjectConstant;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
+public class YandexMainPage extends BasePage {
 
-public class YandexMainPage extends AbstractPage {
-
-    @FindBy(xpath = "//div[@aria-label = 'Яндекс']")
+    @FindBy(xpath = "//div[@class = 'home-logo__default']")
     private WebElement logo;
 
-    @FindBy (xpath = "//input[@placeholder = 'Логин']")
+    @FindBy (xpath = "//input[@name = 'login']")
     private WebElement fieldLogin;
 
-    @FindBy (xpath = "//input[@placeholder = 'Пароль']")
+    @FindBy (xpath = "//input[@name = 'passwd']")
     private WebElement fieldPassword;
 
     @FindBy (xpath = "//button[contains(@class, 'auth__button')]")
@@ -28,7 +27,7 @@ public class YandexMainPage extends AbstractPage {
     private WebElement searchButton;
 
 
-    @FindBy (xpath = "//div/a[contains(@data-metric, 'Выход')]")
+    @FindBy (xpath = "//div/a[contains(@data-metric, 'Выход')]") //understand that is not a good idea use Russian letters here, but I did not have another way
     private WebElement logOutBtn;
 
 
@@ -37,31 +36,19 @@ public class YandexMainPage extends AbstractPage {
         PageFactory.initElements(this.driver, this);
     }
 
+    @Override
     public void openPage () {
-        driver.navigate().to(StaticParamClass.BASE_URL);
-    }
-
-    public void search(String query) {
-        requestInput.sendKeys(query);
-        searchButton.click();
-    }
-
-    public void search() {
-        search(StaticParamClass.QUERY);
+        driver.navigate().to(ProjectConstant.BASE_URL);
     }
 
     public void singInYandex () {
-        singIn(StaticParamClass.LOGIN,StaticParamClass.PASSWORD);
+        singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
     }
 
     public void singIn (String login, String psw) {
         fieldLogin.sendKeys(login);
         fieldPassword.sendKeys(psw);
         submit.click();
-    }
-
-    public boolean isNeedPageOpen () {
-        return logo.isDisplayed();
     }
 
     public void logOut() {

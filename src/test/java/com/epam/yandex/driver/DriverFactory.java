@@ -18,7 +18,7 @@ public class DriverFactory {
 
     private DriverFactory() {}
 
-    public static  WebDriver getDriver(String browser) throws Exception {
+    public static  WebDriver getDriver(String browser) {
         if (driver == null) {
             {
                 switch (browser) {

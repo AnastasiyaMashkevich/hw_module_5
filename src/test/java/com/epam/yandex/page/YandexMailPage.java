@@ -66,11 +66,11 @@ public class YandexMailPage extends BasePage {
     }
 
     @Override
-    public void openPage () {
-        driver.navigate().to(ProjectConstant.BASE_URL);
+    public void openPage() {
+        driver.navigate().to(ProjectConstant.MAIL_PAGE);
     }
 
-    public boolean singInIsSuccess () {
+    public boolean singInIsSuccess() {
         WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TIME_20_SEC);
         return userMail.getText().equals(ProjectConstant.LOGIN);
     }

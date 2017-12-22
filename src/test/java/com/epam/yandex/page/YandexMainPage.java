@@ -37,11 +37,11 @@ public class YandexMainPage extends BasePage {
     }
 
     @Override
-    public void openPage () {
+    public void openPage() {
         driver.navigate().to(ProjectConstant.BASE_URL);
     }
 
-    public void singIn (String login, String psw) {
+    public void singIn(String login, String psw) {
         fieldLogin.sendKeys(login);
         fieldPassword.sendKeys(psw);
         submit.click();

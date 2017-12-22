@@ -28,9 +28,6 @@ public class DriverFactory {
                                 DesiredCapabilities capabilities = new DesiredCapabilities();
                                 System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
                                 driver = new ChromeDriver(capabilities);
-                                driver.manage().timeouts().pageLoadTimeout(35, TimeUnit.SECONDS);
-                                driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
-                                driver.manage().window().maximize();
                             }
                         }
                     }
@@ -39,15 +36,15 @@ public class DriverFactory {
                             if (driver == null) {
                                 System.setProperty(WEBDRIVER_GECKO_DRIVER, GECKODRIVER_PATH);
                                 driver = new FirefoxDriver();
-                                driver.manage().timeouts().pageLoadTimeout(35, TimeUnit.SECONDS);
-                                driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
-                                driver.manage().window().maximize();
                             }
                         }
                     }
                 }
             }
         }
+        driver.manage().timeouts().pageLoadTimeout(35, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
         return driver;
     }

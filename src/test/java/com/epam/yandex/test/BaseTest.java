@@ -8,12 +8,12 @@ public class BaseTest {
 	protected WebDriver driver;
 
 	@BeforeTest(description = "Init driver")
-	public WebDriver initDriver() throws Exception {
+	public WebDriver initDriver() {
 		System.out.println("BeforeTest: Init driver");
 		return driver = DriverFactory.getDriver("chrome");
 	}
 
-	@AfterClass(description = "Stop Browser")
+	@AfterTest(description = "Stop Browser")
 	public void stopBrowser() {
 		driver.quit();
 		System.out.println("AfterTest: close browser");

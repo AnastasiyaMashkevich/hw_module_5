@@ -2,21 +2,22 @@ package com.epam.yandex.test;
 
 import com.epam.yandex.driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
 
 public class BaseTest {
 	protected WebDriver driver;
 
-	@BeforeTest(description = "Init driver")
+	@BeforeClass(description = "Init driver")
 	public WebDriver initDriver() {
-		System.out.println("BeforeTest: Init driver");
+		System.out.println("BeforeClass: Init driver");
 		return driver = DriverFactory.getDriver("chrome");
 	}
 
-	@AfterTest(description = "Stop Browser")
+	@AfterClass(description = "Stop Browser")
 	public void stopBrowser() {
 		driver.quit();
-		System.out.println("AfterTest: close browser");
+		System.out.println("AfterClass: close browser");
 	}
 }

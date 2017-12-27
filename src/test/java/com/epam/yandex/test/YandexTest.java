@@ -1,8 +1,10 @@
 package com.epam.yandex.test;
 
+import com.epam.yandex.pageobjects.blocks.EmailFormBlock;
+import com.epam.yandex.pageobjects.blocks.EmailListBlock;
 import com.epam.yandex.util.ProjectConstant;
-import com.epam.yandex.page.YandexMailPage;
-import com.epam.yandex.page.YandexMainPage;
+import com.epam.yandex.pageobjects.pages.YandexMailPage;
+import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import org.apache.commons.lang.RandomStringUtils;
 
 import org.testng.Assert;
@@ -31,36 +33,41 @@ public class YandexTest extends BaseTest {
         System.out.println("Create And Send New Email Test");
 
         yandexMainPage.openPage();
+        Assert.assertTrue(yandexMainPage.isOpened(), "Yandex Main pageobjects is not opened.");
         yandexMainPage.singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
         Assert.assertTrue(yandexMailPage.singInIsSuccess(), "Sing In did not execute.");
 
         yandexMailPage.openNewFormLetter();
-        yandexMailPage.setAddresseeEmail(ProjectConstant.ADDRESSEE);
-        yandexMailPage.setEmailBody(BODY);
-        yandexMailPage.setEmailSubject(SUBJECT);
-        yandexMailPage.clickCloseEmail();
+        EmailFormBlock emailForm = yandexMailPage.emailFormBlock();
+        emailForm.waitForNewEmailFormIsOpened();
+        emailForm.setAddresseeEmail(ProjectConstant.ADDRESSEE);
+        emailForm.setEmailBody(BODY);
+        emailForm.setEmailSubject(SUBJECT);
+        emailForm.clickCloseEmail();
         yandexMailPage.saveEmailAsDraft();
         yandexMailPage.openDraftFolder();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(yandexMailPage.isEmailExist(SUBJECT),
+        EmailListBlock emailList = yandexMailPage.emailListBlock();
+        softAssert.assertTrue(emailList.isEmailExist(SUBJECT),
                 "Nearly created draft email didn't save within Draft folder.");
 
-        yandexMailPage.clickOnEmail(FIRST_ELEMENT);
-        softAssert.assertEquals(yandexMailPage.getAddresseeEmail(), ProjectConstant.ADDRESSEE,
+        emailList.clickOnEmail(FIRST_ELEMENT);
+        emailForm.waitForNewEmailFormIsOpened();
+        softAssert.assertTrue(emailForm.getAddresseeEmail().contains(ProjectConstant.LOGIN),
                 String.format("Addressee email is not correct. Email should be as %s", ProjectConstant.ADDRESSEE));
-        softAssert.assertEquals(yandexMailPage.getEmailSubject(), SUBJECT,
+        softAssert.assertEquals(emailForm.getEmailSubject(), SUBJECT,
                 String.format("Email SUBJECT is not correct. Subject should be as %s", SUBJECT));
-        softAssert.assertEquals(yandexMailPage.getBodyText(), BODY,
+        softAssert.assertEquals(emailForm.getBodyText(), BODY,
                 String.format("Email BODY is not correct. Body should be as %s", BODY));
 
-        yandexMailPage.clickSendEmail();
+        emailForm.clickSendEmail();
         yandexMailPage.openDraftFolder();
-        softAssert.assertFalse(yandexMailPage.isEmailExist(SUBJECT),
+        softAssert.assertFalse(emailList.isEmailExist(SUBJECT),
                 "Draft email exist within Draft folder after sending.");
 
         yandexMailPage.openSentFolder();
-        softAssert.assertTrue(yandexMailPage.isEmailExist(SUBJECT),
+        softAssert.assertTrue(emailList.isEmailExist(SUBJECT),
                 "Sent email didn't save within Sent folder.");
 
         yandexMailPage.openUserSettings();

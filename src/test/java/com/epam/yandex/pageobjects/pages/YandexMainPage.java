@@ -1,5 +1,6 @@
-package com.epam.yandex.page;
+package com.epam.yandex.pageobjects.pages;
 
+import com.epam.yandex.pageobjects.BasePage;
 import com.epam.yandex.util.ProjectConstant;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,15 +37,20 @@ public class YandexMainPage extends BasePage {
         PageFactory.initElements(this.driver, this);
     }
 
-    @Override
     public void openPage() {
         driver.navigate().to(ProjectConstant.BASE_URL);
     }
 
-    public void singIn(String login, String psw) {
+    @Override
+    public boolean isOpened() {
+        return logo.isDisplayed();
+    }
+
+    public YandexMailPage singIn(String login, String psw) {
         fieldLogin.sendKeys(login);
         fieldPassword.sendKeys(psw);
         submit.click();
+        return new YandexMailPage(driver);
     }
 
     public void logOut() {

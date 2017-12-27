@@ -4,7 +4,6 @@ package com.epam.yandex.util;
 public class ProjectConstant {
 
     public static final String BASE_URL = "http://www.yandex.by/";
-    public static final String MAIL_PAGE = "https://mail.yandex.by";
     public static final String LOGIN = "module05";
     public static final String ADDRESSEE = "module05@yandex.ru";
     public static final String PASSWORD = "test2017";

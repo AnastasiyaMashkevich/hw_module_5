@@ -2,7 +2,8 @@ package com.epam.yandex.test;
 
 import com.epam.yandex.driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
 
 public class BaseTest {
 	protected WebDriver driver;

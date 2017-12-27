@@ -14,7 +14,7 @@ public class DriverFactory {
     private static final String WEBDRIVER_GECKO_DRIVER = "webdriver.gecko.driver";
     private static final String WEBDRIVER_CHROME = "webdriver.chrome.driver";
     private static final String GECKODRIVER_PATH = "./src/test/resources/geckodriver";
-    private static final String CHROME_DRIVER = "chromedriver";
+    private static final String CHROME_DRIVER = "./src/test/resources/chromedriver";
 
     private DriverFactory() {}
 

@@ -1,4 +1,4 @@
-package com.epam.yandex.page;
+package com.epam.yandex.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
@@ -10,6 +10,6 @@ public abstract class BasePage {
         this.driver = driver;
     }
 
-    public abstract void openPage();
+    public abstract boolean isOpened();
 
 }

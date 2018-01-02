@@ -23,16 +23,6 @@ public class WaitUtil {
 				});
 	}
 
-	public static void waitForElementsSizeAppear(WebDriver driver, List<WebElement> webElement, int elementsNumber, int timeoutSec) {
-		FluentWait<WebDriver> fluentWait = new FluentWait<>(driver);
-		fluentWait.withTimeout(timeoutSec, TimeUnit.SECONDS).pollingEvery(60, TimeUnit.MILLISECONDS).until((new Function<WebDriver, Boolean>() {
-			@Override public Boolean apply(WebDriver driver) {
-				int visibleSize = webElement.stream().map(WebElement::isDisplayed).filter(v -> v).collect(Collectors.toList()).size();
-				return visibleSize == elementsNumber;
-			}
-		}));
-	}
-
 	public static void sleep(int timeoutInSec) {
 		try {
 			Sleeper.SYSTEM_SLEEPER.sleep(new Duration(timeoutInSec, TimeUnit.SECONDS));

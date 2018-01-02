@@ -6,7 +6,7 @@
     </listeners>
     <test name="Test1" >
         <classes>
-            <class name="com.epam.yandex.test.YandexTest" >
+            <class name="com.epam.yandex.test.YandexAdditionTest" >
                 <methods>
                 </methods>
             </class>

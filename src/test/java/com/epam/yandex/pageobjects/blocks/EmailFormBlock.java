@@ -1,7 +1,8 @@
 package com.epam.yandex.pageobjects.blocks;
 
 import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.util.ProjectConstant;
+import com.epam.yandex.util.JavaScriptUtil;
+import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,7 +59,7 @@ public class EmailFormBlock extends BasePage {
 	}
 
 	public String getBodyText() {
-		return emailBodyText.getText();
+		return JavaScriptUtil.getElementTextValue(driver, emailBodyText);
 	}
 
 	public String getAddresseeEmail() {

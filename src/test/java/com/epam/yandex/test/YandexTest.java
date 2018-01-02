@@ -2,7 +2,7 @@ package com.epam.yandex.test;
 
 import com.epam.yandex.pageobjects.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.blocks.EmailListBlock;
-import com.epam.yandex.util.ProjectConstant;
+import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import org.apache.commons.lang.RandomStringUtils;

@@ -7,9 +7,7 @@ import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Sleeper;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class WaitUtil {
 

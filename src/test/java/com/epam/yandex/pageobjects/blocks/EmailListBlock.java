@@ -1,7 +1,6 @@
 package com.epam.yandex.pageobjects.blocks;
 
 import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

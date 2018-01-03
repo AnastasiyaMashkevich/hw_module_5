@@ -17,9 +17,9 @@ public class YandexAdditionTest extends BaseTest {
     private YandexMailPage yandexMailPage;
     private EmailListBlock emailList;
 
-    @BeforeClass(description = "Init page")
+    @BeforeClass(description = "Log In")
     public void setUp() {
-        System.out.println("Init page");
+        System.out.println("Log In");
         yandexMainPage = new YandexMainPage(driver);
         yandexMainPage.openPage();
         yandexMailPage = yandexMainPage.singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
@@ -34,7 +34,7 @@ public class YandexAdditionTest extends BaseTest {
 
         yandexMailPage.dragSentEmailToDraftFolder(FIRST_ITEM);
         Assert.assertFalse(emailList.getSubjectList().contains(firstItemSubject),
-                "Item did not moved from Sent folder.");
+                "Item did not move from Sent folder.");
 
         yandexMailPage.openDraftFolder();
         Assert.assertTrue(emailList.getSubjectList().contains(firstItemSubject),
@@ -52,8 +52,9 @@ public class YandexAdditionTest extends BaseTest {
                 "Draft folder contains deleted item.");
     }
 
-    @AfterClass
+    @AfterClass(description = "Log Out")
     public void logOut() {
+        System.out.println("Log Out");
         yandexMailPage.openUserSettings();
         yandexMainPage.logOut();
     }

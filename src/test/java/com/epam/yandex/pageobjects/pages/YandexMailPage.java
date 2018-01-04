@@ -91,12 +91,10 @@ public class YandexMailPage extends BasePage {
     }
 
     public void dragSentEmailToDraftFolder(int emailIndex) {
-        new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex),
-                draftFolder);
+        new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex), draftFolder);
     }
 
     public void contextClickOnEmailByIndex(int index) {
         new ActionsUtil(driver).contextClick(new EmailListBlock(driver).getEmailList().get(index));
     }
-
 }

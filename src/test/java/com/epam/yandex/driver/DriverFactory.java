@@ -1,8 +1,9 @@
 package com.epam.yandex.driver;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -28,8 +29,11 @@ public class DriverFactory {
                         synchronized (DriverFactory.class) {
                             if (driver == null) {
                                 System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
+                                DesiredCapabilities capability = DesiredCapabilities.chrome();
+                                capability.setBrowserName("chrome" );
+                                capability.setPlatform(Platform.MAC);
                                 try {
-                                    driver = new RemoteWebDriver(new URL(LOCALHOST), new ChromeOptions());
+                                    driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
                                 } catch (Exception e) {
                                     System.out.println("Web Driver was not created.");
                                     e.printStackTrace();

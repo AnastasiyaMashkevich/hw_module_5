@@ -1,9 +1,11 @@
 package com.epam.yandex.pageobjects.pages;
 
 import com.epam.yandex.pageobjects.BasePage;
+import com.epam.yandex.pageobjects.blocks.ContextBlock;
 import com.epam.yandex.pageobjects.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.blocks.EmailListBlock;
-import com.epam.yandex.util.ProjectConstant;
+import com.epam.yandex.util.ActionsUtil;
+import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,12 +37,14 @@ public class YandexMailPage extends BasePage {
 
     private EmailListBlock emailListBlock;
     private EmailFormBlock emailFormBlock;
+    private ContextBlock contextBlock;
 
     public YandexMailPage (WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
         emailListBlock = new EmailListBlock(driver);
         emailFormBlock = new EmailFormBlock(driver);
+        contextBlock = new ContextBlock(driver);
     }
 
     public EmailListBlock emailListBlock() {
@@ -49,6 +53,10 @@ public class YandexMailPage extends BasePage {
 
     public EmailFormBlock emailFormBlock() {
         return emailFormBlock;
+    }
+
+    public ContextBlock contextBlock() {
+        return contextBlock;
     }
 
     @Override
@@ -82,4 +90,11 @@ public class YandexMailPage extends BasePage {
         userMail.click();
     }
 
+    public void dragSentEmailToDraftFolder(int emailIndex) {
+        new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex), draftFolder);
+    }
+
+    public void contextClickOnEmailByIndex(int index) {
+        new ActionsUtil(driver).contextClick(new EmailListBlock(driver).getEmailList().get(index));
+    }
 }

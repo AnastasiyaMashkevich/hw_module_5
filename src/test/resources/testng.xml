@@ -4,7 +4,7 @@
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
         <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
     </listeners>
-    <test name="Test1" >
+    <test name="TestWD" >
         <classes>
             <class name="com.epam.yandex.test.YandexTest" >
                 <methods>

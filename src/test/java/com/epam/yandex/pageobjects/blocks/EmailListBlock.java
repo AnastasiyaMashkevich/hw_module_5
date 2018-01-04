@@ -1,7 +1,6 @@
 package com.epam.yandex.pageobjects.blocks;
 
 import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.util.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,10 +41,6 @@ public class EmailListBlock extends BasePage {
 		emailList.get(index).click();
 	}
 
-	public void waitForElementsSize(int size) {
-		WaitUtil.waitForElementsSizeAppear(driver, subjectList, size, ProjectConstant.TIME_20_SEC );
-	}
-
 	public int getDraftEmailNumber() {
 		return getSubjectList().size();
 	}
@@ -56,5 +51,9 @@ public class EmailListBlock extends BasePage {
 
 	public boolean isEmailExist(String query) {
 		return getSubjectList().contains(query);
+	}
+
+	public List<WebElement> getEmailList() {
+		return emailList;
 	}
 }

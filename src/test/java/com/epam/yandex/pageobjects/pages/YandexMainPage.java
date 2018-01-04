@@ -1,7 +1,8 @@
 package com.epam.yandex.pageobjects.pages;
 
 import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.util.ProjectConstant;
+import com.epam.yandex.util.JavaScriptUtil;
+import com.epam.yandex.util.constant.ProjectConstant;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class YandexMainPage extends BasePage {
 
-    @FindBy(xpath = "//div[@class = 'home-logo__default']")
+    @FindBy(xpath = "//div[@class = 'home-logo']")
     private WebElement logo;
 
     @FindBy (xpath = "//input[@name = 'login']")
@@ -26,7 +27,6 @@ public class YandexMainPage extends BasePage {
 
     @FindBy(xpath = "//div[@class = 'search2__button']/button[@type='submit']")
     private WebElement searchButton;
-
 
     @FindBy (xpath = "//div/a[contains(@data-metric, 'Выход')]") //understand that is not a good idea use Russian letters here, but I did not have another way
     private WebElement logOutBtn;
@@ -49,7 +49,7 @@ public class YandexMainPage extends BasePage {
     public YandexMailPage singIn(String login, String psw) {
         fieldLogin.sendKeys(login);
         fieldPassword.sendKeys(psw);
-        submit.click();
+        JavaScriptUtil.jsClickOnElement(driver, submit);
         return new YandexMailPage(driver);
     }
 

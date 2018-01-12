@@ -29,10 +29,10 @@ public class YandexMailPage extends BasePage {
     @FindBy (xpath = "//button[contains(@data-action, 'save')]")
     private WebElement saveAsDraftBtn;
 
-    @FindBy (xpath = "//a[contains(@data-fid, '6')]")
+    @FindBy (xpath = "//div[contains(@class, 'ns-view-left-box')]//a[contains(@href, '#draft')]")
     private WebElement draftFolder;
 
-    @FindBy (xpath = "//a[contains(@data-fid, '4')]")
+    @FindBy (xpath = "//div[contains(@class, 'ns-view-left-box')]//a[contains(@href, '#sent')]")
     private WebElement sentFolder;
 
     private EmailListBlock emailListBlock;

@@ -1,9 +1,9 @@
 package com.epam.yandex.pageobjects.pages;
 
 import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.pageobjects.blocks.ContextBlock;
-import com.epam.yandex.pageobjects.blocks.EmailFormBlock;
-import com.epam.yandex.pageobjects.blocks.EmailListBlock;
+import com.epam.yandex.pageobjects.pages.blocks.ContextBlock;
+import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
+import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.util.ActionsUtil;
 import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public class YandexMailPage extends BasePage {
 
@@ -41,10 +43,10 @@ public class YandexMailPage extends BasePage {
 
     public YandexMailPage (WebDriver driver) {
         super(driver);
-        PageFactory.initElements(this.driver, this);
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
         emailListBlock = new EmailListBlock(driver);
         emailFormBlock = new EmailFormBlock(driver);
-        contextBlock = new ContextBlock(driver);
+
     }
 
     public EmailListBlock emailListBlock() {
@@ -55,9 +57,6 @@ public class YandexMailPage extends BasePage {
         return emailFormBlock;
     }
 
-    public ContextBlock contextBlock() {
-        return contextBlock;
-    }
 
     @Override
     public boolean isOpened() {
@@ -96,5 +95,10 @@ public class YandexMailPage extends BasePage {
 
     public void contextClickOnEmailByIndex(int index) {
         new ActionsUtil(driver).contextClick(new EmailListBlock(driver).getEmailList().get(index));
+    }
+
+    public void clickDelete() {
+        contextBlock.waitForContexMenuVisible(driver);
+        contextBlock.clickDeleteItem();
     }
 }

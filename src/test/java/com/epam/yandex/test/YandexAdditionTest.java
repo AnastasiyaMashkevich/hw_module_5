@@ -1,7 +1,6 @@
 package com.epam.yandex.test;
 
-import com.epam.yandex.pageobjects.blocks.ContextBlock;
-import com.epam.yandex.pageobjects.blocks.EmailListBlock;
+import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.util.constant.ProjectConstant;
@@ -46,8 +45,8 @@ public class YandexAdditionTest extends BaseTest {
         System.out.println("Delete Draft Email Test");
         String firstItemSubject = emailList.getSubjectList().get(FIRST_ITEM);
         yandexMailPage.contextClickOnEmailByIndex(FIRST_ITEM);
-        ContextBlock contextBlock = yandexMailPage.contextBlock();
-        contextBlock.clickDeleteItem();
+        //ContextBlock contextBlock = yandexMailPage.contextBlock();
+        yandexMailPage.clickDelete();
         Assert.assertFalse(emailList.getSubjectList().contains(firstItemSubject),
                 "Draft folder contains deleted item.");
     }

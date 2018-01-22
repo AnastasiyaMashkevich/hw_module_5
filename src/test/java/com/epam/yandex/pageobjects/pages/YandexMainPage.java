@@ -60,5 +60,4 @@ public class YandexMainPage extends BasePage {
     public boolean subminIsVisible() {
         return submit.isDisplayed();
     }
-
 }

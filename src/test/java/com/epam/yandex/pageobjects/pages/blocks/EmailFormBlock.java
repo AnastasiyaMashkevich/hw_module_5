@@ -1,4 +1,4 @@
-package com.epam.yandex.pageobjects.blocks;
+package com.epam.yandex.pageobjects.pages.blocks;
 
 import com.epam.yandex.pageobjects.BasePage;
 import com.epam.yandex.util.JavaScriptUtil;

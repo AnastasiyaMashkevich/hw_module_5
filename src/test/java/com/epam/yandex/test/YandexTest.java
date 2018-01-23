@@ -1,10 +1,11 @@
 package com.epam.yandex.test;
 
-import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
-import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
-import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
+import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
+import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
+import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
+import com.epam.yandex.util.constant.ProjectConstant;
 import org.apache.commons.lang.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -21,6 +22,7 @@ public class YandexTest extends BaseTest {
     private YandexMailPage yandexMailPage;
     private EmailFormBlock emailForm;
     private EmailListBlock emailList;
+    private HeaderBlock headerBlock;
 
     @BeforeClass(description = "Init page")
     public void setUp() {
@@ -33,14 +35,15 @@ public class YandexTest extends BaseTest {
         System.out.println("Sing In Test");
         yandexMainPage.openPage();
         Assert.assertTrue(yandexMainPage.isOpened(), "Yandex Main pageobjects is not opened.");
-        yandexMailPage = yandexMainPage.singIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
-        Assert.assertTrue(yandexMailPage.singInIsSuccess(), "Sing In did not execute.");
+        yandexMailPage = yandexMainPage.logIn(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
+        headerBlock = yandexMailPage.headerBlock();
+        Assert.assertTrue(headerBlock.singInIsSuccess(), "Sing In did not execute.");
     }
 
     @Test(description = "createEmail", priority = 1)
     public void createEmailTest() {
         System.out.println("Create New Email Test");
-        yandexMailPage.openNewFormLetter();
+        headerBlock.openNewFormLetter();
         emailForm = yandexMailPage.emailFormBlock();
         emailForm.waitForNewEmailFormIsOpened();
         emailForm.setAddresseeEmail(ProjectConstant.ADDRESSEE);
@@ -87,9 +90,9 @@ public class YandexTest extends BaseTest {
         softAssert.assertTrue(emailList.isEmailExist(SUBJECT),
                 "Sent email didn't save within Sent folder.");
 
-        yandexMailPage.openUserSettings();
-        yandexMainPage.logOut();
-        softAssert.assertTrue(yandexMainPage.subminIsVisible(), "Log Out did not execute.");
+        headerBlock.openUserSettings();
+        yandexMailPage.logOut();
+        softAssert.assertTrue(yandexMainPage.isSubmitVisible(), "Log Out did not execute.");
         softAssert.assertAll();
     }
 

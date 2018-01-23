@@ -1,9 +1,10 @@
 package com.epam.yandex.pageobjects.pages;
 
-import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.pageobjects.pages.blocks.ContextBlock;
+import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
+import com.epam.yandex.pageobjects.pages.forms.ContextForm;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
+import com.epam.yandex.pageobjects.pages.forms.UserSettingsPopUpForm;
 import com.epam.yandex.util.ActionsUtil;
 import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
@@ -16,14 +17,19 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 public class YandexMailPage extends BasePage {
 
-    @FindBy (xpath = "//div[@class = 'mail-User-Name']")
-    private WebElement userMail;
+    private EmailListBlock emailListBlock;
+    private EmailFormBlock emailFormBlock;
+    private HeaderBlock headerBlock;
+    private ContextForm contextForm;
+    private UserSettingsPopUpForm settingsPopUpForm;
 
-    @FindBy (xpath = "//div[@class = 'mail-App-Header']")
-    private WebElement mailHeader;
-
-    @FindBy (xpath = "//a[contains(@class, 'mail-ComposeButton')]")
-    private WebElement createNew;
+    public YandexMailPage (WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
+        emailListBlock = new EmailListBlock(driver);
+        emailFormBlock = new EmailFormBlock(driver);
+        headerBlock = new HeaderBlock(driver);
+    }
 
     @FindBy (xpath = "//div[contains(@class, 'ui-dialog-fixed')]")
     private WebElement saveChangesPopup;
@@ -37,18 +43,6 @@ public class YandexMailPage extends BasePage {
     @FindBy (xpath = "//div[contains(@class, 'ns-view-left-box')]//a[contains(@href, '#sent')]")
     private WebElement sentFolder;
 
-    private EmailListBlock emailListBlock;
-    private EmailFormBlock emailFormBlock;
-    private ContextBlock contextBlock;
-
-    public YandexMailPage (WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
-        emailListBlock = new EmailListBlock(driver);
-        emailFormBlock = new EmailFormBlock(driver);
-
-    }
-
     public EmailListBlock emailListBlock() {
         return emailListBlock;
     }
@@ -57,19 +51,8 @@ public class YandexMailPage extends BasePage {
         return emailFormBlock;
     }
 
-
-    @Override
-    public boolean isOpened() {
-        return createNew.isDisplayed();
-    }
-
-    public boolean singInIsSuccess() {
-        WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TIME_20_SEC);
-        return userMail.getText().equals(ProjectConstant.LOGIN);
-    }
-
-    public void openNewFormLetter() {
-        createNew.click();
+    public HeaderBlock headerBlock() {
+        return headerBlock;
     }
 
     public void saveEmailAsDraft() {
@@ -85,10 +68,6 @@ public class YandexMailPage extends BasePage {
         sentFolder.click();
     }
 
-    public void openUserSettings() {
-        userMail.click();
-    }
-
     public void dragSentEmailToDraftFolder(int emailIndex) {
         new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex), draftFolder);
     }
@@ -98,7 +77,11 @@ public class YandexMailPage extends BasePage {
     }
 
     public void clickDelete() {
-        contextBlock.waitForContexMenuVisible(driver);
-        contextBlock.clickDeleteItem();
+        contextForm.waitForContexMenuVisible(driver);
+        contextForm.clickDeleteItem();
+    }
+    
+    public void logOut() {
+        settingsPopUpForm.logOut();
     }
 }

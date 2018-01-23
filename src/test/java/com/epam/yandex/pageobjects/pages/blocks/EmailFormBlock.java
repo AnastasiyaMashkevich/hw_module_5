@@ -1,6 +1,6 @@
 package com.epam.yandex.pageobjects.pages.blocks;
 
-import com.epam.yandex.pageobjects.BasePage;
+import com.epam.yandex.pageobjects.pages.BasePage;
 import com.epam.yandex.util.JavaScriptUtil;
 import com.epam.yandex.util.constant.ProjectConstant;
 import com.epam.yandex.util.WaitUtil;
@@ -10,6 +10,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class EmailFormBlock extends BasePage {
+
+	public EmailFormBlock(WebDriver driver) {
+		super(driver);
+		PageFactory.initElements(this.driver, this);
+	}
 
 	@FindBy(xpath = "//div[contains(@name, 'to')]")
 	private WebElement addresseeEmailField;
@@ -32,12 +37,6 @@ public class EmailFormBlock extends BasePage {
 	@FindBy (xpath = "//button[contains(@class, 'js-send-button')]")
 	private WebElement sendEmailBtn;
 
-	public EmailFormBlock(WebDriver driver) {
-		super(driver);
-		PageFactory.initElements(this.driver, this);
-	}
-
-	@Override
 	public boolean isOpened() {
 		return sendEmailBtn.isDisplayed();
 	}

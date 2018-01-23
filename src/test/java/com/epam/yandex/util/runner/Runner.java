@@ -1,4 +1,4 @@
-package com.epam.yandex.runner;
+package com.epam.yandex.util.runner;
 
 import org.testng.TestNG;
 import org.testng.collections.Lists;

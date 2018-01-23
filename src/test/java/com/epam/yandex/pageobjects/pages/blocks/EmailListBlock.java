@@ -1,6 +1,6 @@
 package com.epam.yandex.pageobjects.pages.blocks;
 
-import com.epam.yandex.pageobjects.BasePage;
+import com.epam.yandex.pageobjects.pages.BasePage;
 import com.epam.yandex.util.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +13,11 @@ import java.util.stream.Collectors;
 //this block contains list of emails(sent, draft or received)
 public class EmailListBlock extends BasePage {
 
+	public EmailListBlock(WebDriver driver) {
+		super(driver);
+		PageFactory.initElements(this.driver, this);
+	}
+
 	@FindBy (xpath = "//span[contains(@class, 'mail-MessageSnippet-Item_subjectWrapper')]/span")
 	private List<WebElement> subjectList;
 
@@ -22,12 +27,6 @@ public class EmailListBlock extends BasePage {
 	@FindBy (xpath = "//div[contains(@class, 'mail-Layout-Content')]//div[contains(@class, 'mail-MessagesList')]")
 	private WebElement allMessagesBlock;
 
-	public EmailListBlock(WebDriver driver) {
-		super(driver);
-		PageFactory.initElements(this.driver, this);
-	}
-
-	@Override
 	public boolean isOpened() {
 		return allMessagesBlock.isDisplayed();
 	}

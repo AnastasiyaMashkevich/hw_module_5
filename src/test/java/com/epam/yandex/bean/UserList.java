@@ -10,16 +10,39 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserList {
 
+	@JsonProperty("users")
+	private List<User> user;
+
+	public UserList(){
+
+	}
+
+	@JsonProperty("users")
 	public List<User> getUser() {
 		return user;
 	}
 
+	@JsonProperty("users")
 	public void setUser(List<User> user) {
 		this.user = user;
 	}
 
-	@JsonProperty("user1")
-	private List<User> user;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		UserList userList = (UserList) o;
+
+		return user != null ? user.equals(userList.user) : userList.user == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return user != null ? user.hashCode() : 0;
+	}
 
 
 }

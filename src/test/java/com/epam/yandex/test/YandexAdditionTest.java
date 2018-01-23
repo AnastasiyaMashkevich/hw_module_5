@@ -4,6 +4,7 @@ import com.epam.yandex.bean.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
+import com.epam.yandex.util.UserService;
 import com.epam.yandex.util.constant.ProjectConstant;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -20,7 +21,7 @@ public class YandexAdditionTest extends BaseTest {
     public void setUp() {
         System.out.println("Log In");
 
-        User user = new User(ProjectConstant.LOGIN, ProjectConstant.PASSWORD);
+        User user = new UserService().getUserList().get(0);
         YandexMainPage yandexMainPage = new YandexMainPage(driver);
 
         yandexMainPage.openPage();

@@ -1,6 +1,7 @@
 package com.epam.yandex.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 
 public class JsonUtils {
 
@@ -9,7 +10,7 @@ public class JsonUtils {
 	private JsonUtils() {
 	}
 
-	public static <T> T fromJson(String json, Class<T> classOfT) {
+	public static <T> T fromJson(File json, Class<T> classOfT) {
 		try {
 			return mapper.readValue(json, classOfT);
 		} catch (Exception e) {

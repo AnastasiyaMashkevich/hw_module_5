@@ -8,14 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
+	@JsonProperty("name")
+	private String name;
 	@JsonProperty("login")
 	private String login;
 	@JsonProperty("psw")
 	private String psw;
 
-	public User(String login, String psw) {
-		this.login = login;
-		this.psw = psw;
+	public User() {
+
 	}
 
 	@JsonProperty("login")
@@ -36,6 +37,16 @@ public class User {
 	@JsonProperty("psw")
 	public void setPsw(String psw) {
 		this.psw = psw;
+	}
+
+	@JsonProperty("name")
+	public String getName() {
+		return name;
+	}
+
+	@JsonProperty("name")
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override public boolean equals(Object o) {

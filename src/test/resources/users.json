@@ -1,6 +1,10 @@
 {
-  "user1": {
-    "login":"module05",
-      "psw":"test2017"
-  }
+  "users":
+  [
+    {
+      "name": "user",
+      "login": "module05",
+      "psw": "test2017"
+    }
+  ]
 }

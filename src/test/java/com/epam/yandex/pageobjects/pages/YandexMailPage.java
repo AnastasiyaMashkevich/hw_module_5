@@ -1,27 +1,35 @@
 package com.epam.yandex.pageobjects.pages;
 
-import com.epam.yandex.pageobjects.BasePage;
-import com.epam.yandex.pageobjects.blocks.ContextBlock;
-import com.epam.yandex.pageobjects.blocks.EmailFormBlock;
-import com.epam.yandex.pageobjects.blocks.EmailListBlock;
-import com.epam.yandex.util.ActionsUtil;
-import com.epam.yandex.util.constant.ProjectConstant;
-import com.epam.yandex.util.WaitUtil;
+import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
+import com.epam.yandex.pageobjects.pages.forms.ContextForm;
+import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
+import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
+import com.epam.yandex.pageobjects.pages.forms.UserSettingsPopUpForm;
+import com.epam.yandex.uitests.utils.ActionsUtil;
+import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public class YandexMailPage extends BasePage {
 
-    @FindBy (xpath = "//div[@class = 'mail-User-Name']")
-    private WebElement userMail;
+    private EmailListBlock emailListBlock;
+    private EmailFormBlock emailFormBlock;
+    private HeaderBlock headerBlock;
+    private ContextForm contextForm;
+    private UserSettingsPopUpForm settingsPopUpForm;
 
-    @FindBy (xpath = "//div[@class = 'mail-App-Header']")
-    private WebElement mailHeader;
-
-    @FindBy (xpath = "//a[contains(@class, 'mail-ComposeButton')]")
-    private WebElement createNew;
+    public YandexMailPage (WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
+        emailListBlock = new EmailListBlock(driver);
+        emailFormBlock = new EmailFormBlock(driver);
+        headerBlock = new HeaderBlock(driver);
+    }
 
     @FindBy (xpath = "//div[contains(@class, 'ui-dialog-fixed')]")
     private WebElement saveChangesPopup;
@@ -35,18 +43,6 @@ public class YandexMailPage extends BasePage {
     @FindBy (xpath = "//div[contains(@class, 'ns-view-left-box')]//a[contains(@href, '#sent')]")
     private WebElement sentFolder;
 
-    private EmailListBlock emailListBlock;
-    private EmailFormBlock emailFormBlock;
-    private ContextBlock contextBlock;
-
-    public YandexMailPage (WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(this.driver, this);
-        emailListBlock = new EmailListBlock(driver);
-        emailFormBlock = new EmailFormBlock(driver);
-        contextBlock = new ContextBlock(driver);
-    }
-
     public EmailListBlock emailListBlock() {
         return emailListBlock;
     }
@@ -55,26 +51,12 @@ public class YandexMailPage extends BasePage {
         return emailFormBlock;
     }
 
-    public ContextBlock contextBlock() {
-        return contextBlock;
-    }
-
-    @Override
-    public boolean isOpened() {
-        return createNew.isDisplayed();
-    }
-
-    public boolean singInIsSuccess() {
-        WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TIME_20_SEC);
-        return userMail.getText().equals(ProjectConstant.LOGIN);
-    }
-
-    public void openNewFormLetter() {
-        createNew.click();
+    public HeaderBlock headerBlock() {
+        return headerBlock;
     }
 
     public void saveEmailAsDraft() {
-        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TIME_20_SEC);
+        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TimeConstant.TIME_20_SEC);
         saveAsDraftBtn.click();
     }
 
@@ -86,15 +68,21 @@ public class YandexMailPage extends BasePage {
         sentFolder.click();
     }
 
-    public void openUserSettings() {
-        userMail.click();
-    }
-
     public void dragSentEmailToDraftFolder(int emailIndex) {
         new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex), draftFolder);
     }
 
     public void contextClickOnEmailByIndex(int index) {
         new ActionsUtil(driver).contextClick(new EmailListBlock(driver).getEmailList().get(index));
+    }
+
+    public void clickDelete() {
+        contextForm.waitForContexMenuVisible(driver);
+        contextForm.clickDeleteItem();
+    }
+    
+    public void logOut() {
+        settingsPopUpForm.waitForLogOutVisible(driver);
+        settingsPopUpForm.logOut();
     }
 }

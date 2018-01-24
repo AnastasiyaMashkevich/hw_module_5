@@ -27,7 +27,6 @@ public class UserList {
 		this.user = user;
 	}
 
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -35,14 +34,10 @@ public class UserList {
 
 		UserList userList = (UserList) o;
 		return user != null ? user.equals(userList.user) : userList.user == null;
-
 	}
 
 	@Override
 	public int hashCode() {
 		return user != null ? user.hashCode() : 0;
 	}
-
-
 }
-

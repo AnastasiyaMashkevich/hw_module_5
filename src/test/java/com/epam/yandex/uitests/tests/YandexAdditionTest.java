@@ -1,10 +1,8 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
-import com.epam.yandex.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +10,6 @@ import org.testng.annotations.Test;
 
 public class YandexAdditionTest extends BaseTest {
 
-    private static final int FIRST_ITEM = 0;
     private YandexMailPage yandexMailPage;
     private EmailListBlock emailList;
 
@@ -20,9 +17,7 @@ public class YandexAdditionTest extends BaseTest {
     public void setUp() {
         System.out.println("Log In");
 
-        User user = new UserService().getUserList().get(FIRST_ITEM);
         YandexMainPage yandexMainPage = new YandexMainPage(driver);
-
         yandexMainPage.openPage();
         yandexMailPage = yandexMainPage.logIn(user.getLogin(), user.getPsw());
     }

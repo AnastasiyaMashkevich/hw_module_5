@@ -1,12 +1,10 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
-import com.epam.yandex.service.UserService;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.uitests.utils.RandomGenerateUtil;
 import org.testng.Assert;
@@ -24,7 +22,6 @@ public class YandexTest extends BaseTest {
     private EmailFormBlock emailForm;
     private EmailListBlock emailList;
     private HeaderBlock headerBlock;
-    private User user;
 
     @BeforeClass(description = "Init page")
     public void setUp() {
@@ -36,7 +33,6 @@ public class YandexTest extends BaseTest {
     public void singIn() {
         System.out.println("Sing In Test");
 
-        user = new UserService().getUserList().get(FIRST_ELEMENT);
         yandexMainPage.openPage();
         Assert.assertTrue(yandexMainPage.isOpened(), "Yandex Main pageobjects is not opened.");
 

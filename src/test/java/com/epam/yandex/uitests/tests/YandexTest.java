@@ -1,23 +1,22 @@
-package com.epam.yandex.test;
+package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.bean.User;
+import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
-import com.epam.yandex.util.RandomGenerateUtil;
-import com.epam.yandex.util.UserService;
-import com.epam.yandex.util.constant.ProjectConstant;
-import org.apache.commons.lang.RandomStringUtils;
+import com.epam.yandex.service.UserService;
+import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.RandomGenerateUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class YandexTest extends BaseTest {
-    private static final String BODY = RandomGenerateUtil.generateString();
-    private static final String SUBJECT = RandomGenerateUtil.generateString();
+    private static final String BODY = RandomGenerateUtil.randomString();
+    private static final String SUBJECT = RandomGenerateUtil.randomString();
     private static final int FIRST_ELEMENT = 0;
 
     private YandexMainPage yandexMainPage;
@@ -36,17 +35,20 @@ public class YandexTest extends BaseTest {
     @Test(description = "singIn")
     public void singIn() {
         System.out.println("Sing In Test");
-        user = new UserService().getUserList().get(0);
+
+        user = new UserService().getUserList().get(FIRST_ELEMENT);
         yandexMainPage.openPage();
         Assert.assertTrue(yandexMainPage.isOpened(), "Yandex Main pageobjects is not opened.");
+
         yandexMailPage = yandexMainPage.logIn(user.getLogin(), user.getPsw());
         headerBlock = yandexMailPage.headerBlock();
-        Assert.assertTrue(headerBlock.singInIsSuccess(), "Sing In did not execute.");
+        Assert.assertTrue(headerBlock.singInIsSuccess(user.getLogin()), "Sing In did not execute.");
     }
 
     @Test(description = "createEmail", priority = 1)
     public void createEmailTest() {
         System.out.println("Create New Email Test");
+
         headerBlock.openNewFormLetter();
         emailForm = yandexMailPage.emailFormBlock();
         emailForm.waitForNewEmailFormIsOpened();

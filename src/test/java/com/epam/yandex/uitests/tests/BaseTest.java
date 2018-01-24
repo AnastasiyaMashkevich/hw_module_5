@@ -1,6 +1,6 @@
-package com.epam.yandex.test;
+package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.util.DriverFactory;
+import com.epam.yandex.common.driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

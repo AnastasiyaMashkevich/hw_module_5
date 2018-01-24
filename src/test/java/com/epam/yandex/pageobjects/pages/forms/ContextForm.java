@@ -1,6 +1,8 @@
 package com.epam.yandex.pageobjects.pages.forms;
 
-import com.epam.yandex.util.WaitUtil;
+
+import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +24,6 @@ public class ContextForm extends HtmlElement {
     }
 
     public void waitForContexMenuVisible(WebDriver webDriver) {
-        WaitUtil.waitForElementIsDisplayed(webDriver, contextMenu, 5);
+        WaitUtil.waitForElementIsDisplayed(webDriver, contextMenu, ProjectConstant.TimeConstant.TIME_10_SEC);
     }
 }

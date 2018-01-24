@@ -1,11 +1,10 @@
-package com.epam.yandex.test;
+package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.bean.User;
+import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
-import com.epam.yandex.util.UserService;
-import com.epam.yandex.util.constant.ProjectConstant;
+import com.epam.yandex.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,7 +20,7 @@ public class YandexAdditionTest extends BaseTest {
     public void setUp() {
         System.out.println("Log In");
 
-        User user = new UserService().getUserList().get(0);
+        User user = new UserService().getUserList().get(FIRST_ITEM);
         YandexMainPage yandexMainPage = new YandexMainPage(driver);
 
         yandexMainPage.openPage();
@@ -31,6 +30,7 @@ public class YandexAdditionTest extends BaseTest {
     @Test(description = "moveEmailToDraftFolder", priority = 1)
     public void moveEmailToDraftFolderTest() {
         System.out.println("Move Email To Draft Folder Test");
+
         yandexMailPage.openSentFolder();
         emailList = yandexMailPage.emailListBlock();
         String firstItemSubject = emailList.getSubjectList().get(FIRST_ITEM);
@@ -59,6 +59,7 @@ public class YandexAdditionTest extends BaseTest {
     @AfterClass(description = "Log Out")
     public void logOut() {
         System.out.println("Log Out");
+
         yandexMailPage.headerBlock().openUserSettings();
         yandexMailPage.logOut();
     }

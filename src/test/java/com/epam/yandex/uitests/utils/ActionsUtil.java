@@ -1,4 +1,4 @@
-package com.epam.yandex.util;
+package com.epam.yandex.uitests.utils;
 
 
 import org.openqa.selenium.WebDriver;

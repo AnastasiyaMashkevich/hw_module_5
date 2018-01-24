@@ -1,4 +1,4 @@
-package com.epam.yandex.bean;
+package com.epam.yandex.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,7 +34,6 @@ public class UserList {
 		if (o == null || getClass() != o.getClass()) return false;
 
 		UserList userList = (UserList) o;
-
 		return user != null ? user.equals(userList.user) : userList.user == null;
 
 	}

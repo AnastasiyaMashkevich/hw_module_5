@@ -1,4 +1,4 @@
-package com.epam.yandex.bean;
+package com.epam.yandex.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,9 +1,9 @@
 package com.epam.yandex.pageobjects.pages.blocks;
 
 import com.epam.yandex.pageobjects.pages.BasePage;
-import com.epam.yandex.util.JavaScriptUtil;
-import com.epam.yandex.util.constant.ProjectConstant;
-import com.epam.yandex.util.WaitUtil;
+import com.epam.yandex.uitests.utils.JavaScriptUtil;
+import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -74,6 +74,6 @@ public class EmailFormBlock extends BasePage {
 	}
 
 	public void waitForNewEmailFormIsOpened() {
-		WaitUtil.waitForElementIsDisplayed(driver, sendEmailBtn, ProjectConstant.TIME_20_SEC);
+		WaitUtil.waitForElementIsDisplayed(driver, sendEmailBtn, ProjectConstant.TimeConstant.TIME_20_SEC);
 	}
 }

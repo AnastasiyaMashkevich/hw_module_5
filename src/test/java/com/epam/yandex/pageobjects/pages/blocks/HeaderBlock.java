@@ -1,8 +1,8 @@
 package com.epam.yandex.pageobjects.pages.blocks;
 
 import com.epam.yandex.pageobjects.pages.BasePage;
-import com.epam.yandex.util.WaitUtil;
-import com.epam.yandex.util.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.WaitUtil;
+import com.epam.yandex.uitests.constant.ProjectConstant;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,9 +24,9 @@ public class HeaderBlock extends BasePage {
 	@FindBy (xpath = "//div[@class = 'mail-App-Header']")
 	private WebElement mailHeader;
 
-	public boolean singInIsSuccess() {
-		WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TIME_20_SEC);
-		return userMail.getText().equals(ProjectConstant.LOGIN);
+	public boolean singInIsSuccess(String login) {
+		WaitUtil.waitForElementIsDisplayed(driver, mailHeader, ProjectConstant.TimeConstant.TIME_20_SEC);
+		return userMail.getText().equals(login);
 	}
 
 	public void openNewFormLetter() {

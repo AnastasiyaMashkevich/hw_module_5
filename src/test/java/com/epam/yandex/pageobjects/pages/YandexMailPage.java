@@ -5,9 +5,9 @@ import com.epam.yandex.pageobjects.pages.forms.ContextForm;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.forms.UserSettingsPopUpForm;
-import com.epam.yandex.util.ActionsUtil;
-import com.epam.yandex.util.constant.ProjectConstant;
-import com.epam.yandex.util.WaitUtil;
+import com.epam.yandex.uitests.utils.ActionsUtil;
+import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.utils.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,7 +56,7 @@ public class YandexMailPage extends BasePage {
     }
 
     public void saveEmailAsDraft() {
-        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TIME_20_SEC);
+        WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TimeConstant.TIME_20_SEC);
         saveAsDraftBtn.click();
     }
 
@@ -82,6 +82,7 @@ public class YandexMailPage extends BasePage {
     }
     
     public void logOut() {
+        settingsPopUpForm.waitForLogOutVisible(driver);
         settingsPopUpForm.logOut();
     }
 }

@@ -1,7 +1,7 @@
 package com.epam.yandex.pageobjects.pages;
 
 import com.epam.yandex.pageobjects.pages.forms.LogInForm;
-import com.epam.yandex.util.constant.ProjectConstant;
+import com.epam.yandex.uitests.constant.ProjectConstant;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

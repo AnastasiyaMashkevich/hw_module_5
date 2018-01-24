@@ -1,7 +1,9 @@
-package com.epam.yandex.util;
+package com.epam.yandex.service;
 
-import com.epam.yandex.bean.User;
-import com.epam.yandex.bean.UserList;
+import com.epam.yandex.model.User;
+import com.epam.yandex.model.UserList;
+import com.epam.yandex.uitests.utils.JsonUtils;
+
 import java.io.File;
 import java.util.List;
 

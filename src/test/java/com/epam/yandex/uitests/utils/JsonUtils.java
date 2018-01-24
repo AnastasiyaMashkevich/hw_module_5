@@ -1,4 +1,4 @@
-package com.epam.yandex.util;
+package com.epam.yandex.uitests.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;

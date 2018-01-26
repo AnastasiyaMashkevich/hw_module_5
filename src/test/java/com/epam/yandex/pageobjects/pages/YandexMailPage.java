@@ -8,6 +8,7 @@ import com.epam.yandex.pageobjects.pages.forms.UserSettingsPopUpForm;
 import com.epam.yandex.uitests.utils.ActionsUtil;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.uitests.utils.WaitUtil;
+import com.epam.yandex.uitests.utils.JSCommandsHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,7 +58,7 @@ public class YandexMailPage extends BasePage {
 
     public void saveEmailAsDraft() {
         WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TimeConstant.TIME_20_SEC);
-        saveAsDraftBtn.click();
+        JSCommandsHelper.clickOnElement(saveAsDraftBtn, driver);
     }
 
     public void openDraftFolder() {

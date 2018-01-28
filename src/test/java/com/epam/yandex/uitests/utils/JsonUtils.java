@@ -1,20 +1,22 @@
 package com.epam.yandex.uitests.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 
 public class JsonUtils {
 
-	private static ObjectMapper mapper = new ObjectMapper();
+	private static ObjectMapper mapper;
 
 	private JsonUtils() {
 	}
 
-	public static <T> T fromJson(File json, Class<T> classOfT) {
-		try {
-			return mapper.readValue(json, classOfT);
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage(), e);
+	public static ObjectMapper getMapper() {
+		if (mapper == null) {
+			synchronized (JsonUtils.class) {
+				if ((mapper == null)) {
+					return mapper = new ObjectMapper();
+				}
+			}
 		}
+		return mapper;
 	}
 }

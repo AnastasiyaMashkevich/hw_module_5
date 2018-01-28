@@ -28,7 +28,7 @@ public class YandexMainPage extends BasePage {
     private WebElement searchButton;
     
     public void openPage() {
-        driver.navigate().to(ProjectConstant.BASE_URL);
+        driver.get(ProjectConstant.BASE_URL);
     }
 
     public boolean isOpened() {

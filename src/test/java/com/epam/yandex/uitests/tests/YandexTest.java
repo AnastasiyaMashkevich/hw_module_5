@@ -6,6 +6,7 @@ import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
 import com.epam.yandex.uitests.constant.ProjectConstant;
+import com.epam.yandex.uitests.pagecreator.MainPageCreator;
 import com.epam.yandex.uitests.utils.RandomGenerateUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -26,7 +27,8 @@ public class YandexTest extends BaseTest {
     @BeforeClass(description = "Init page")
     public void setUp() {
         System.out.println("Init page");
-        yandexMainPage = new YandexMainPage(driver);
+        pageCreator = new MainPageCreator();
+        yandexMainPage = (YandexMainPage) pageCreator.createPage(driver);
     }
 
     @Test(description = "singIn")

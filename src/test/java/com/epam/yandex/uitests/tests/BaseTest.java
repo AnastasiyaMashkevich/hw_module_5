@@ -3,6 +3,7 @@ package com.epam.yandex.uitests.tests;
 import com.epam.yandex.common.driver.DriverFactory;
 import com.epam.yandex.model.User;
 import com.epam.yandex.service.UserService;
+import com.epam.yandex.uitests.pagecreator.PageCreator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,6 +14,7 @@ public class BaseTest {
 
 	protected User user;
 	protected WebDriver driver;
+	protected PageCreator pageCreator;
 
 	@BeforeClass(description = "Init driver and user")
 	public void init() {

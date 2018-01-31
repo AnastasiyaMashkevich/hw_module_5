@@ -1,6 +1,5 @@
-package com.epam.yandex.uitests.utils.jscommand.command;
+package com.epam.yandex.utils.jscommand.command;
 
-import com.epam.yandex.uitests.utils.jscommand.command.ICommand;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 

@@ -7,7 +7,7 @@ import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.uitests.pagecreator.MainPageCreator;
-import com.epam.yandex.uitests.utils.RandomGenerateUtil;
+import com.epam.yandex.utils.RandomGenerateUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

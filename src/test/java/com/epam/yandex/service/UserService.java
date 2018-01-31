@@ -2,7 +2,7 @@ package com.epam.yandex.service;
 
 import com.epam.yandex.model.User;
 import com.epam.yandex.model.UserList;
-import com.epam.yandex.uitests.utils.JsonUtils;
+import com.epam.yandex.utils.JsonUtils;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,5 @@
 package com.epam.yandex.common.driver;
 
-import com.epam.yandex.common.driver.driver.Driver;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -34,7 +33,7 @@ public class DriverFactory {
                                 capability.setBrowserName("chrome" );
                                 capability.setPlatform(Platform.MAC);
                                 try {
-                                    driver = new Driver(new RemoteWebDriver(new URL(LOCALHOST), capability));
+                                    driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
                                 } catch (Exception e) {
                                     System.out.println("Web Driver was not created.");
                                     e.printStackTrace();
@@ -47,7 +46,7 @@ public class DriverFactory {
                             if (driver == null) {
                                 System.setProperty(WEBDRIVER_GECKO_DRIVER, GECKODRIVER_PATH);
                                 try {
-                                    driver = new Driver(new RemoteWebDriver(new URL(LOCALHOST), new FirefoxOptions()));
+                                    driver = new RemoteWebDriver(new URL(LOCALHOST), new FirefoxOptions());
                                 } catch (MalformedURLException e) {
                                     System.out.println("Web Driver was not created.");
                                     e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.epam.yandex.uitests.utils.jscommand;
+package com.epam.yandex.utils.jscommand;
 
 
 public enum Commands {

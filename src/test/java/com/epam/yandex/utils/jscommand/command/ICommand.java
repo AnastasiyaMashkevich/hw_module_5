@@ -1,4 +1,4 @@
-package com.epam.yandex.uitests.utils.jscommand.command;
+package com.epam.yandex.utils.jscommand.command;
 
 
 public interface ICommand<T>  {

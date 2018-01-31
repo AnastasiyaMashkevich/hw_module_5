@@ -2,8 +2,8 @@ package com.epam.yandex.pageobjects.pages.blocks;
 
 import com.epam.yandex.pageobjects.pages.BasePage;
 import com.epam.yandex.uitests.constant.ProjectConstant;
-import com.epam.yandex.uitests.utils.WaitUtil;
-import com.epam.yandex.uitests.utils.JSCommandsHelper;
+import com.epam.yandex.utils.WaitUtil;
+import com.epam.yandex.utils.JSCommandsHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

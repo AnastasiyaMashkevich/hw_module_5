@@ -1,7 +1,7 @@
-package com.epam.yandex.uitests.utils;
+package com.epam.yandex.utils;
 
-import com.epam.yandex.uitests.utils.jscommand.command.ClickOnElement;
-import com.epam.yandex.uitests.utils.jscommand.command.GetInvisibleElementsText;
+import com.epam.yandex.utils.jscommand.command.ClickOnElement;
+import com.epam.yandex.utils.jscommand.command.GetInvisibleElementsText;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

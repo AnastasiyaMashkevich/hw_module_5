@@ -2,9 +2,10 @@ package com.epam.yandex.service;
 
 import com.epam.yandex.model.User;
 import com.epam.yandex.model.UserList;
-import com.epam.yandex.uitests.utils.JsonUtils;
+import com.epam.yandex.utils.JsonUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class UserService {
@@ -14,8 +15,11 @@ public class UserService {
 	private UserList userList;
 
 	public UserService() {
-		userList = JsonUtils.fromJson(new File(USERS_DATA_PATH),
-				UserList.class);
+		try {
+			userList = JsonUtils.getMapper().readValue(new File(USERS_DATA_PATH), UserList.class);
+		} catch (IOException e) {
+			throw new RuntimeException(" We could not receive a user list.");
+		}
 	}
 
 	public List<User> getUserList() {

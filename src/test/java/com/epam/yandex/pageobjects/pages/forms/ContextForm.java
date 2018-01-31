@@ -2,7 +2,7 @@ package com.epam.yandex.pageobjects.pages.forms;
 
 
 import com.epam.yandex.uitests.constant.ProjectConstant;
-import com.epam.yandex.uitests.utils.WaitUtil;
+import com.epam.yandex.utils.WaitUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -1,4 +1,4 @@
-package com.epam.yandex.uitests.utils;
+package com.epam.yandex.utils;
 
 import java.security.SecureRandom;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package com.epam.yandex.uitests.utils;
+package com.epam.yandex.utils;
 
 
 import org.openqa.selenium.WebDriver;
@@ -18,6 +18,6 @@ public class ActionsUtil {
     }
 
     public void dragAndDrop(WebElement from, WebElement to) {
-        builder.pause(1000).clickAndHold(from).moveToElement(to).release(to).build().perform();
+        builder.pause(3000).clickAndHold(from).moveToElement(to).release(to).build().perform();
     }
 }

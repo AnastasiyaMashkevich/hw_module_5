@@ -1,7 +1,9 @@
 package com.epam.yandex.uitests.cucumbersteps;
 
 import com.epam.yandex.common.driver.DriverFactory;
+import com.epam.yandex.model.Email;
 import com.epam.yandex.model.User;
+import com.epam.yandex.model.UserList;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
@@ -13,6 +15,7 @@ import com.epam.yandex.uitests.pagecreator.MailPageCreator;
 import com.epam.yandex.uitests.pagecreator.MainPageCreator;
 import com.epam.yandex.uitests.pagecreator.PageCreator;
 
+import com.epam.yandex.utils.JsonUtils;
 import com.epam.yandex.utils.RandomGenerateUtil;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -23,8 +26,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import java.io.File;
+import java.io.IOException;
+
 public class YandexStepdefs {
-    private static final String BODY = RandomGenerateUtil.randomString();
+    private static final String VALUE = RandomGenerateUtil.randomString();
     private static final String SUBJECT = RandomGenerateUtil.randomString();
     private WebDriver driver = DriverFactory.getDriver("chrome");
     private PageCreator pageCreator = new MainPageCreator();
@@ -60,11 +66,11 @@ public class YandexStepdefs {
         emailForm.waitForNewEmailFormIsOpened();
     }
 
-    @And("^enters body, subject, addressee of email$")
-    public void entersBodySubjectAddresseeOfEmail() {
-        emailForm.setAddresseeEmail(ProjectConstant.ADDRESSEE);
-        emailForm.setEmailBody(BODY);
-        emailForm.setEmailSubject(SUBJECT);
+    @And("^enters Body as \"([^\"]*)\", Subject as \"([^\"]*)\", Addressee as \"([^\"]*)\" of email$")
+    public void entersBodySubjectAddresseeOfEmail(String body, String subject, String addressee) {
+        emailForm.setAddresseeEmail(addressee);
+        emailForm.setEmailBody(body + VALUE);
+        emailForm.setEmailSubject(subject + VALUE);
     }
 
     @When("^clicks close email$")
@@ -97,15 +103,21 @@ public class YandexStepdefs {
         emailForm.waitForNewEmailFormIsOpened();
     }
 
-    @Then("^filled fields are displayed$")
-    public void filledFieldsAreDisplayed() throws Throwable {
+    @Then("^filled fields are displayed as")
+    public void filledFieldsAreDisplayed(String str) {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(emailForm.getAddresseeEmail().contains(user.getLogin()),
-                String.format("Addressee email is not correct. Email should be as %s", ProjectConstant.ADDRESSEE));
-        softAssert.assertEquals(emailForm.getEmailSubject(), SUBJECT,
-                String.format("Email SUBJECT is not correct. Subject should be as %s", SUBJECT));
-        softAssert.assertEquals(emailForm.getBodyText(), BODY,
-                String.format("Email BODY is not correct. Body should be as %s", BODY));
+        Email email;
+        try {
+            email = JsonUtils.getMapper().readValue(str, Email.class);
+        } catch (IOException e) {
+            throw new RuntimeException(" We could not receive a user list.");
+        }
+        softAssert.assertTrue(emailForm.getAddresseeEmail().contains(email.getAddressee()),
+                String.format("Addressee email is not correct. Email should be as %s", email.getAddressee()));
+        softAssert.assertEquals(emailForm.getEmailSubject(), email.getSubject() +VALUE,
+                String.format("Email SUBJECT is not correct. Subject should be as %s", email.getSubject() + VALUE));
+        softAssert.assertEquals(emailForm.getBodyText(), email.getBody() + VALUE,
+                String.format("Email BODY is not correct. Body should be as %s", email.getBody() + VALUE));
         softAssert.assertAll();
     }
 
@@ -136,18 +148,17 @@ public class YandexStepdefs {
                 "Sent email didn't save within Sent folder.");
     }
 
-    @When("^drag sent email to draft folder$")
-    public void dragSentEmailToDraftFolder() {
+    @When("^drag (\\d+) sent email to draft folder$")
+    public void dragSentEmailToDraftFolder(int emailNumber) {
         emailList = new YandexMailPage(driver).emailListBlock();
-        String firstItemSubject = emailList.getSubjectList().get(0);
-        yandexMailPage.dragSentEmailToDraftFolder(0);
+        String firstItemSubject = emailList.getSubjectList().get(emailNumber - 1);
+        yandexMailPage.dragSentEmailToDraftFolder(emailNumber - 1);
 
     }
 
     @Then("^email displays within folder$")
     public void movedEmailDisplaysWithinDraftFolder() {
         emailList = new YandexMailPage(driver).emailListBlock();
-        firstItemSubject = emailList.getSubjectList().get(0);
         Assert.assertTrue(emailList.getSubjectList().contains(firstItemSubject),
                 "Draft folder does not contain moved item.");
     }
@@ -158,13 +169,19 @@ public class YandexStepdefs {
                 "Item did not move from Sent folder.");
     }
 
-    @When("^user does context click on any email$")
-    public void userDoesContextClickOnAnyEmail() {
-        yandexMailPage.contextClickOnEmailByIndex(0);
+    @When("^user does context click on (\\d+) email$")
+    public void userDoesContextClickOnAnyEmail(int emailNumber) {
+        yandexMailPage.contextClickOnEmailByIndex(emailNumber - 1);
     }
 
     @And("^click Delete$")
     public void clickDelete() {
         yandexMailPage.clickDelete();;
+    }
+
+    @Then("^filled fields are displayed as <Json>$")
+    public void filledFieldsAreDisplayedAsJson() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

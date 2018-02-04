@@ -2,6 +2,7 @@ package com.epam.yandex.common.driver;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -16,7 +17,7 @@ public class DriverFactory {
     private static final String WEBDRIVER_GECKO_DRIVER = "webdriver.gecko.driver";
     private static final String WEBDRIVER_CHROME = "webdriver.chrome.driver";
     private static final String GECKODRIVER_PATH = "./src/test/resources/geckodriver";
-    private static final String CHROME_DRIVER = "./src/test/resources/chromedriver";
+    private static final String CHROME_DRIVER = "./src/test/resources/chromedriver.exe";
     private static final String LOCALHOST = "http://localhost:4444/wd/hub";
 
     private DriverFactory() {}
@@ -31,9 +32,10 @@ public class DriverFactory {
                                 System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
                                 DesiredCapabilities capability = DesiredCapabilities.chrome();
                                 capability.setBrowserName("chrome" );
-                                capability.setPlatform(Platform.MAC);
+                                //capability.setPlatform(Platform.MAC);
                                 try {
-                                    driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
+                                    //driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
+                                    driver = new ChromeDriver(capability);
                                 } catch (Exception e) {
                                     System.out.println("Web Driver was not created.");
                                     e.printStackTrace();

@@ -13,8 +13,8 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(strict = true, plugin = { "json:target/cucumber-report.json",
 		"html:target/cucumber-report" },
-		features = {"src/test/resources/cucumber_features/yandex_test.feature",
-		 "src/test/resources/cucumber_features/yandex_addition_test.feature"},
+		features = {"./src/test/resources/cucumber_features/yandex_test.feature",
+		 "./src/test/resources/cucumber_features/yandex_addition_test.feature"},
 		glue = {"com.epam.yandex.uitests.cucumbersteps" })
 
 public class YandexCucumberTest extends AbstractTestNGCucumberTests {

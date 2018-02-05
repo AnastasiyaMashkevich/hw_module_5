@@ -37,8 +37,7 @@ public class YandexStepdefs {
     private YandexMainPage yandexMainPage = (YandexMainPage) pageCreator.createPage(driver);
     private User user = new UserService().getUserList().get(0);
     private YandexMailPage yandexMailPage = new MailPageCreator().createPage(driver);
-    private HeaderBlock headerBlock = yandexMailPage.headerBlock();
-    String firstItemSubject;
+    private String firstItemSubject;
     private EmailFormBlock emailForm = yandexMailPage.emailFormBlock();
     private EmailListBlock emailList = yandexMailPage.emailListBlock();
 
@@ -55,7 +54,7 @@ public class YandexStepdefs {
 
     @Then("^user loged in$")
     public void yandexMailPageIsDisplayed() {
-        headerBlock = yandexMailPage.headerBlock();
+        HeaderBlock headerBlock = yandexMailPage.headerBlock();
         Assert.assertTrue(headerBlock.singInIsSuccess(user.getLogin()), "Sing In did not execute.");
     }
 
@@ -84,10 +83,10 @@ public class YandexStepdefs {
         yandexMailPage.openDraftFolder();
     }
 
-    @Then("^created deaft email displays within draft email list$")
-    public void createdDeaftEmailDisplaysWithinDraftEmailList() {
+    @Then("^created deaft email \"([^\"]*)\" displays within draft email list$")
+    public void createdDeaftEmailDisplaysWithinDraftEmailList(String subject) {
         EmailListBlock emailList = yandexMailPage.emailListBlock();
-        Assert.assertTrue(emailList.isEmailExist(SUBJECT),
+        Assert.assertTrue(emailList.isEmailExist(subject + VALUE),
                 "Nearly created draft email didn't save within Draft folder.");
     }
 
@@ -103,7 +102,7 @@ public class YandexStepdefs {
         emailForm.waitForNewEmailFormIsOpened();
     }
 
-    @Then("^filled fields are displayed as")
+    @Then("^filled fields are displayed as:")
     public void filledFieldsAreDisplayed(String str) {
         SoftAssert softAssert = new SoftAssert();
         Email email;
@@ -119,10 +118,6 @@ public class YandexStepdefs {
         softAssert.assertEquals(emailForm.getBodyText(), email.getBody() + VALUE,
                 String.format("Email BODY is not correct. Body should be as %s", email.getBody() + VALUE));
         softAssert.assertAll();
-    }
-
-    @Given("^draft email is opened$")
-    public void draftEmailIsOpened() {
     }
 
     @When("^clicks on send button$")
@@ -151,7 +146,7 @@ public class YandexStepdefs {
     @When("^drag (\\d+) sent email to draft folder$")
     public void dragSentEmailToDraftFolder(int emailNumber) {
         emailList = new YandexMailPage(driver).emailListBlock();
-        String firstItemSubject = emailList.getSubjectList().get(emailNumber - 1);
+        firstItemSubject = emailList.getSubjectList().get(emailNumber - 1);
         yandexMailPage.dragSentEmailToDraftFolder(emailNumber - 1);
 
     }
@@ -179,9 +174,4 @@ public class YandexStepdefs {
         yandexMailPage.clickDelete();;
     }
 
-    @Then("^filled fields are displayed as <Json>$")
-    public void filledFieldsAreDisplayedAsJson() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 }

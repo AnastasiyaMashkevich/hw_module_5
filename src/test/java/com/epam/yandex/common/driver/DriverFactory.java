@@ -2,6 +2,7 @@ package com.epam.yandex.common.driver;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -31,7 +32,7 @@ public class DriverFactory {
                                 System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
                                 DesiredCapabilities capability = DesiredCapabilities.chrome();
                                 capability.setBrowserName("chrome" );
-                                capability.setPlatform(Platform.MAC);
+                                //capability.setPlatform(Platform.MAC);
                                 try {
                                     driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
                                 } catch (Exception e) {

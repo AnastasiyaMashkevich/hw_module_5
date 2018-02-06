@@ -6,7 +6,7 @@
     </listeners>
     <test name="TestWD" >
         <classes>
-            <class name="com.epam.yandex.uitests.tests.YandexTest" >
+            <class name="com.epam.yandex.uitests.tests.YandexCucumberTest" >
                 <methods>
                 </methods>
             </class>

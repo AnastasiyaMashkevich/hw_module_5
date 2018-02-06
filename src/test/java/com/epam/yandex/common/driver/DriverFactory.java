@@ -17,7 +17,7 @@ public class DriverFactory {
     private static final String WEBDRIVER_GECKO_DRIVER = "webdriver.gecko.driver";
     private static final String WEBDRIVER_CHROME = "webdriver.chrome.driver";
     private static final String GECKODRIVER_PATH = "./src/test/resources/geckodriver";
-    private static final String CHROME_DRIVER = "./src/test/resources/chromedriver.exe";
+    private static final String CHROME_DRIVER = "./src/test/resources/chromedriver";
     private static final String LOCALHOST = "http://localhost:4444/wd/hub";
 
     private DriverFactory() {}
@@ -34,8 +34,7 @@ public class DriverFactory {
                                 capability.setBrowserName("chrome" );
                                 //capability.setPlatform(Platform.MAC);
                                 try {
-                                    //driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
-                                    driver = new ChromeDriver(capability);
+                                    driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
                                 } catch (Exception e) {
                                     System.out.println("Web Driver was not created.");
                                     e.printStackTrace();

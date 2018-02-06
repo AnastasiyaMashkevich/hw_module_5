@@ -4,7 +4,6 @@ import com.epam.yandex.common.driver.DriverFactory;
 import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.service.UserService;
-import com.epam.yandex.uitests.pagecreator.PageCreator;
 import cucumber.api.CucumberOptions;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -22,7 +21,6 @@ public class YandexCucumberTest extends AbstractTestNGCucumberTests {
 
 	protected User user;
 	protected WebDriver driver= DriverFactory.getDriver("chrome");;
-	protected PageCreator pageCreator;
 
 	@BeforeClass(description = "Init driver and user")
 	public void init() {

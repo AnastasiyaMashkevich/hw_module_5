@@ -1,23 +1,20 @@
 package com.epam.yandex.uitests.cucumbersteps;
 
+
 import com.epam.yandex.common.driver.DriverFactory;
 import com.epam.yandex.model.Email;
 import com.epam.yandex.model.User;
-import com.epam.yandex.model.UserList;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailFormBlock;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
 import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
+import com.epam.yandex.service.EmailService;
 import com.epam.yandex.service.UserService;
-import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.uitests.pagecreator.MailPageCreator;
 import com.epam.yandex.uitests.pagecreator.MainPageCreator;
 import com.epam.yandex.uitests.pagecreator.PageCreator;
-
-import com.epam.yandex.utils.JsonUtils;
 import com.epam.yandex.utils.RandomGenerateUtil;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -26,12 +23,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import java.io.File;
-import java.io.IOException;
 
-public class YandexStepdefs {
+public class YandexStepDefinition {
+
     private static final String VALUE = RandomGenerateUtil.randomString();
-    private static final String SUBJECT = RandomGenerateUtil.randomString();
     private WebDriver driver = DriverFactory.getDriver("chrome");
     private PageCreator pageCreator = new MainPageCreator();
     private YandexMainPage yandexMainPage = (YandexMainPage) pageCreator.createPage(driver);
@@ -58,6 +53,29 @@ public class YandexStepdefs {
         Assert.assertTrue(headerBlock.singInIsSuccess(user.getLogin()), "Sing In did not execute.");
     }
 
+    @And("^opens draft folder$")
+    public void opensDraftFolder() {
+        yandexMailPage.openDraftFolder();
+    }
+
+    @Then("^sent email with subject \"([^\"]*)\" is absent$")
+    public void sentEmailIsAbsent(String subject) {
+        emailList = yandexMailPage.emailListBlock();
+        Assert.assertFalse(emailList.isEmailExist(subject + VALUE),
+                "Draft email exist within Draft folder after sending.");
+    }
+
+    @When("^opens sent folder$")
+    public void opensSentFolder() {
+        yandexMailPage.openSentFolder();
+    }
+
+    @Then("^sent email with subject \"([^\"]*)\" is present$")
+    public void sentEmailIsPresent(String subject) {
+        Assert.assertTrue(emailList.isEmailExist(subject + VALUE),
+                "Sent email didn't save within Sent folder.");
+    }
+
     @Given("^user opens new form for email$")
     public void userOpensNewFormForEmail() {
         new HeaderBlock(driver).openNewFormLetter();
@@ -78,21 +96,11 @@ public class YandexStepdefs {
         yandexMailPage.saveEmailAsDraft();
     }
 
-    @And("^opens draft folder$")
-    public void opensDraftFolder() {
-        yandexMailPage.openDraftFolder();
-    }
-
     @Then("^created deaft email \"([^\"]*)\" displays within draft email list$")
     public void createdDeaftEmailDisplaysWithinDraftEmailList(String subject) {
         EmailListBlock emailList = yandexMailPage.emailListBlock();
         Assert.assertTrue(emailList.isEmailExist(subject + VALUE),
                 "Nearly created draft email didn't save within Draft folder.");
-    }
-
-    @Given("^user sees draft emails$")
-    public void userOpensDraftEmailFolder() throws Throwable {
-        emailList = yandexMailPage.emailListBlock();
     }
 
     @When("^clicks on nearly created email$")
@@ -103,14 +111,9 @@ public class YandexStepdefs {
     }
 
     @Then("^filled fields are displayed as:")
-    public void filledFieldsAreDisplayed(String str) {
+    public void filledFieldsAreDisplayed(String json) {
         SoftAssert softAssert = new SoftAssert();
-        Email email;
-        try {
-            email = JsonUtils.getMapper().readValue(str, Email.class);
-        } catch (IOException e) {
-            throw new RuntimeException(" We could not receive a user list.");
-        }
+        Email email = EmailService.getEmail(json);
         softAssert.assertTrue(emailForm.getAddresseeEmail().contains(email.getAddressee()),
                 String.format("Addressee email is not correct. Email should be as %s", email.getAddressee()));
         softAssert.assertEquals(emailForm.getEmailSubject(), email.getSubject() +VALUE,
@@ -123,24 +126,6 @@ public class YandexStepdefs {
     @When("^clicks on send button$")
     public void clicksOnSendButton() {
         emailForm.clickSendEmail();
-    }
-
-    @Then("^sent email is absent$")
-    public void sentEmailIsAbsent() {
-        emailList = yandexMailPage.emailListBlock();
-        Assert.assertFalse(emailList.isEmailExist(SUBJECT),
-                "Draft email exist within Draft folder after sending.");
-    }
-
-    @When("^opens sent folder$")
-    public void opensSentFolder() {
-        yandexMailPage.openSentFolder();
-    }
-
-    @Then("^sent email is present$")
-    public void sentEmailIsPresent() {
-        Assert.assertTrue(emailList.isEmailExist(SUBJECT),
-                "Sent email didn't save within Sent folder.");
     }
 
     @When("^drag (\\d+) sent email to draft folder$")

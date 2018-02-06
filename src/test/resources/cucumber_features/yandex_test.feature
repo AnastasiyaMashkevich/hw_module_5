@@ -11,7 +11,7 @@ Feature: Yandex base check
     Then  created deaft email "subject1" displays within draft email list
     Examples:
       | body | subject | addressee |
-      | body1 | subject1 | module05 |
+      | body1 | subject1 | module05@yandex.ru |
 
   Scenario: Email verification
     Given opens draft folder
@@ -21,13 +21,13 @@ Feature: Yandex base check
     {
     "body": "body1",
     "subject": "subject1",
-    "addressee": "module05@yandex.ru"
+    "addressee": "module05"
     }
     """
 
   Scenario: Sending email
     When clicks on send button
     And  opens draft folder
-    Then  sent email is absent
+    Then  sent email with subject "subject1" is absent
     When opens sent folder
-    Then sent email is present
+    Then sent email with subject "subject1" is present

@@ -17,7 +17,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		glue = {"com.epam.yandex.uitests.cucumbersteps" })
 
 public class YandexCucumberTest extends AbstractTestNGCucumberTests {
-	protected static final int FIRST_ITEM = 0;
 
 	protected User user;
 	protected WebDriver driver= DriverFactory.getDriver("chrome");;
@@ -25,9 +24,10 @@ public class YandexCucumberTest extends AbstractTestNGCucumberTests {
 	@BeforeClass(description = "Init driver and user")
 	public void init() {
 		System.out.println("BeforeClass: Init driver and user");
-		user = new UserService().getUserList().get(FIRST_ITEM);
-		new YandexMainPage(driver).openPage();
-		new YandexMainPage(driver).logIn(user.getLogin(), user.getPsw());
+		user = new UserService().getUserList().get(0);
+		YandexMainPage yandexMainPage = new YandexMainPage(driver);
+		yandexMainPage.openPage();
+		yandexMainPage.logIn(user.getLogin(), user.getPsw());
 	}
 
 	@AfterClass(description = "Stop Browser")

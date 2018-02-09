@@ -1,6 +1,6 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.common.driver.DriverFactory;
+import com.epam.yandex.common.driver.ChromeDriver;
 import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.service.UserService;
@@ -18,8 +18,8 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 public class YandexCucumberTest extends AbstractTestNGCucumberTests {
 
+	protected WebDriver driver = new ChromeDriver().getDriver();
 	protected User user;
-	protected WebDriver driver= DriverFactory.getDriver("chrome");;
 
 	@BeforeClass(description = "Init driver and user")
 	public void init() {

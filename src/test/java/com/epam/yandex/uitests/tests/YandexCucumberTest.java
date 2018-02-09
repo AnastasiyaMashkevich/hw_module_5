@@ -1,6 +1,6 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.common.driver.ChromeDriver;
+import com.epam.yandex.common.driver.driverfactory.ChromeDriver;
 import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.service.UserService;

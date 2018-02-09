@@ -1,4 +1,4 @@
-package com.epam.yandex.common.driver;
+package com.epam.yandex.common.driver.driverfactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;

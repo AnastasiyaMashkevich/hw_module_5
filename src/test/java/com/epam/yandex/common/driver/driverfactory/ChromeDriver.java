@@ -6,10 +6,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 
-public class ChromeDriver implements DriverFactory {
+public class ChromeDriver implements DriverCreator {
 
 	private static WebDriver driver;
 
@@ -19,21 +18,15 @@ public class ChromeDriver implements DriverFactory {
 
 	@Override
 	public WebDriver getDriver() {
-		if (driver == null) {
-			System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
-			DesiredCapabilities capability = DesiredCapabilities.chrome();
-			capability.setBrowserName("chrome" );
-			capability.setPlatform(Platform.MAC);
-			try {
-				driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
-				driver.manage().timeouts().pageLoadTimeout(35, TimeUnit.SECONDS);
-				driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
-				driver.manage().window().maximize();
-			} catch (Exception e) {
-				System.out.println("Web Driver was not created.");
-				e.printStackTrace();
-			}
-
+		System.setProperty(WEBDRIVER_CHROME, CHROME_DRIVER);
+		DesiredCapabilities capability = DesiredCapabilities.chrome();
+		capability.setBrowserName("chrome");
+		capability.setPlatform(Platform.MAC);
+		try {
+			driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
+		} catch (Exception e) {
+			System.out.println("Web Driver was not created.");
+			e.printStackTrace();
 		}
 		return driver;
 	}

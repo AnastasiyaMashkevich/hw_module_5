@@ -2,6 +2,7 @@ package com.epam.yandex.uitests.cucumbersteps;
 
 
 import com.epam.yandex.common.driver.driverfactory.ChromeDriver;
+import com.epam.yandex.common.driver.driverfactory.DriverFactory;
 import com.epam.yandex.model.Email;
 import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
@@ -27,7 +28,7 @@ import org.testng.asserts.SoftAssert;
 public class YandexStepDefinition {
 
     private static final String VALUE = RandomGenerateUtil.randomString();
-    private WebDriver driver = new ChromeDriver().getDriver();
+    private WebDriver driver = DriverFactory.getDriver("chrome");
     private PageCreator pageCreator = new MainPageCreator();
     private YandexMainPage yandexMainPage = (YandexMainPage) pageCreator.createPage(driver);
     private User user = new UserService().getUserList().get(0);

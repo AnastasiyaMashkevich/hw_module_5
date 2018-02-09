@@ -1,6 +1,6 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.common.driver.driverfactory.ChromeDriver;
+import com.epam.yandex.common.driver.driverfactory.DriverFactory;
 import com.epam.yandex.model.User;
 import com.epam.yandex.service.UserService;
 import com.epam.yandex.uitests.pagecreator.PageCreator;
@@ -19,7 +19,7 @@ public class BaseTest {
 	@BeforeClass(description = "Init driver and user")
 	public void init() {
 		System.out.println("BeforeClass: Init driver and user");
-		driver = new ChromeDriver().getDriver();
+		driver = DriverFactory.getDriver("chrome");
 		user = new UserService().getUserList().get(FIRST_ITEM);
 	}
 

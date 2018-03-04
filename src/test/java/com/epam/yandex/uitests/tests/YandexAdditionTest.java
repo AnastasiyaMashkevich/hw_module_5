@@ -3,19 +3,21 @@ package com.epam.yandex.uitests.tests;
 import com.epam.yandex.pageobjects.pages.YandexMailPage;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.pageobjects.pages.blocks.EmailListBlock;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class YandexAdditionTest extends BaseTest {
+    private static Logger log = Logger.getLogger(YandexAdditionTest.class);
 
     private YandexMailPage yandexMailPage;
     private EmailListBlock emailList;
 
     @BeforeClass(description = "Log In")
     public void setUp() {
-        System.out.println("Log In");
+        log.info("Log In");
 
         YandexMainPage yandexMainPage = new YandexMainPage(driver);
         yandexMainPage.openPage();
@@ -24,7 +26,7 @@ public class YandexAdditionTest extends BaseTest {
 
     @Test(description = "moveEmailToDraftFolder", priority = 1)
     public void moveEmailToDraftFolderTest() {
-        System.out.println("Move Email To Draft Folder Test");
+       log.info("Move Email To Draft Folder Test");
 
         yandexMailPage.openSentFolder();
         emailList = yandexMailPage.emailListBlock();
@@ -41,7 +43,7 @@ public class YandexAdditionTest extends BaseTest {
 
     @Test(description = "deleteDraftEmail", priority = 2)
     public void deleteDraftEmailTest() {
-        System.out.println("Delete Draft Email Test");
+       log.info("Delete Draft Email Test");
 
         String firstItemSubject = emailList.getSubjectList().get(FIRST_ITEM);
         yandexMailPage.contextClickOnEmailByIndex(FIRST_ITEM);
@@ -53,7 +55,7 @@ public class YandexAdditionTest extends BaseTest {
 
     @AfterClass(description = "Log Out")
     public void logOut() {
-        System.out.println("Log Out");
+       log.info("Log Out");
 
         yandexMailPage.headerBlock().openUserSettings();
         yandexMailPage.logOut();

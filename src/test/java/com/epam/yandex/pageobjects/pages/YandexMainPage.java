@@ -2,6 +2,7 @@ package com.epam.yandex.pageobjects.pages;
 
 import com.epam.yandex.pageobjects.pages.forms.LogInForm;
 import com.epam.yandex.uitests.constant.ProjectConstant;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +11,8 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public class YandexMainPage extends BasePage {
+
+    private static Logger log = Logger.getLogger(YandexMainPage.class);
 
     private LogInForm logInForm;
 
@@ -41,6 +44,7 @@ public class YandexMainPage extends BasePage {
     }
 
     public boolean isSubmitVisible() {
+        log.debug("Checking that submit button is visible. ");
         return logInForm.subminIsVisible();
     }
 }

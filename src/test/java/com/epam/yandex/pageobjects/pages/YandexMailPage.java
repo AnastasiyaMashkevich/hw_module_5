@@ -9,6 +9,7 @@ import com.epam.yandex.utils.ActionsUtil;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.utils.WaitUtil;
 import com.epam.yandex.utils.JSCommandsHelper;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +18,8 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public class YandexMailPage extends BasePage {
+
+    private static Logger log = Logger.getLogger(YandexMailPage.class);
 
     private EmailListBlock emailListBlock;
     private EmailFormBlock emailFormBlock;
@@ -57,19 +60,26 @@ public class YandexMailPage extends BasePage {
     }
 
     public void saveEmailAsDraft() {
+        log.info("Saving email as a draft.");
         WaitUtil.waitForElementIsDisplayed(driver, saveChangesPopup, ProjectConstant.TimeConstant.TIME_20_SEC);
+        JSCommandsHelper.highlightElement(saveAsDraftBtn, driver);
         JSCommandsHelper.clickOnElement(saveAsDraftBtn, driver);
     }
 
     public void openDraftFolder() {
+        log.info("Open draft folder. ");
+        JSCommandsHelper.highlightElement(draftFolder, driver);
         draftFolder.click();
     }
 
     public void openSentFolder() {
+        log.info("Open sent folder. ");
+        JSCommandsHelper.highlightElement(sentFolder, driver);
         sentFolder.click();
     }
 
     public void dragSentEmailToDraftFolder(int emailIndex) {
+        log.info("Drag a sent email to a draft folder.");
         new ActionsUtil(driver).dragAndDrop(new EmailListBlock(driver).getEmailList().get(emailIndex), draftFolder);
     }
 
@@ -78,12 +88,15 @@ public class YandexMailPage extends BasePage {
     }
 
     public void clickDelete() {
+        log.info("Clicking on delete button.");
         contextForm.waitForContexMenuVisible(driver);
+        JSCommandsHelper.highlightElement(contextForm, driver);
         contextForm.clickDeleteItem();
     }
     
     public void logOut() {
         settingsPopUpForm.waitForLogOutVisible(driver);
+        JSCommandsHelper.highlightElement(settingsPopUpForm, driver);
         settingsPopUpForm.logOut();
     }
 }

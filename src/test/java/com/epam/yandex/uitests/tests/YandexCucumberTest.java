@@ -1,11 +1,11 @@
 package com.epam.yandex.uitests.tests;
 
-import com.epam.yandex.common.driver.driverfactory.ChromeDriver;
 import com.epam.yandex.common.driver.driverfactory.DriverFactory;
 import com.epam.yandex.model.User;
 import com.epam.yandex.pageobjects.pages.YandexMainPage;
 import com.epam.yandex.service.UserService;
 import cucumber.api.CucumberOptions;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,13 +18,14 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		glue = {"com.epam.yandex.uitests.cucumbersteps" })
 
 public class YandexCucumberTest extends AbstractTestNGCucumberTests {
+	private static Logger log = Logger.getLogger(AbstractTestNGCucumberTests.class);
 
 	protected WebDriver driver = DriverFactory.getDriver("chrome");;
 	protected User user;
 
 	@BeforeClass(description = "Init driver and user")
 	public void init() {
-		System.out.println("BeforeClass: Init driver and user");
+		log.info("BeforeClass: Init driver and user");
 		user = new UserService().getUserList().get(0);
 		YandexMainPage yandexMainPage = new YandexMainPage(driver);
 		yandexMainPage.openPage();
@@ -34,7 +35,7 @@ public class YandexCucumberTest extends AbstractTestNGCucumberTests {
 	@AfterClass(description = "Stop Browser")
 	public void stopBrowser() {
 		driver.quit();
-		System.out.println("AfterClass: close browser");
+		log.info("AfterClass: close browser");
 	}
 
 }

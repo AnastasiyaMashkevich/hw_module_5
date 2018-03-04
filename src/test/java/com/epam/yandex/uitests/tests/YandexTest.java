@@ -8,12 +8,15 @@ import com.epam.yandex.pageobjects.pages.blocks.HeaderBlock;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.uitests.pagecreator.MainPageCreator;
 import com.epam.yandex.utils.RandomGenerateUtil;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class YandexTest extends BaseTest {
+    private static Logger log = Logger.getLogger(BaseTest.class);
+
     private static final String BODY = RandomGenerateUtil.randomString();
     private static final String SUBJECT = RandomGenerateUtil.randomString();
     private static final int FIRST_ELEMENT = 0;
@@ -26,14 +29,14 @@ public class YandexTest extends BaseTest {
 
     @BeforeClass(description = "Init page")
     public void setUp() {
-        System.out.println("Init page");
+        log.info("Init page");
         pageCreator = new MainPageCreator();
         yandexMainPage = (YandexMainPage) pageCreator.createPage(driver);
     }
 
     @Test(description = "singIn")
     public void singIn() {
-        System.out.println("Sing In Test");
+        log.info("Sing In Test");
 
         yandexMainPage.openPage();
         Assert.assertTrue(yandexMainPage.isOpened(), "Yandex Main pageobjects is not opened.");
@@ -45,7 +48,7 @@ public class YandexTest extends BaseTest {
 
     @Test(description = "createEmail", priority = 1)
     public void createEmailTest() {
-        System.out.println("Create New Email Test");
+        log.info("Create New Email Test");
 
         headerBlock.openNewFormLetter();
         emailForm = yandexMailPage.emailFormBlock();
@@ -64,7 +67,7 @@ public class YandexTest extends BaseTest {
 
     @Test(description = "emailVerification", priority = 2)
     public void emailVerificationTest() {
-        System.out.println("Email Verification Test");
+        log.info("Email Verification Test");
         SoftAssert softAssert = new SoftAssert();
 
         emailList = yandexMailPage.emailListBlock();
@@ -82,7 +85,7 @@ public class YandexTest extends BaseTest {
 
     @Test(description = "sendingEmail", priority = 3)
     public void sendingEmailTest() {
-        System.out.println("Sending Email Test");
+        log.info("Sending Email Test");
         SoftAssert softAssert = new SoftAssert();
 
         emailForm.clickSendEmail();

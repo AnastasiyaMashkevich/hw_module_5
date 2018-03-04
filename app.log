@@ -1,0 +1,36 @@
+20:10:14 INFO  TestListner:45 - Test started at Sun Mar 04 20:10:14 MSK 2018
+20:10:14 INFO  BaseTest:26 - BeforeClass: Init driver and user
+20:10:18 INFO  BaseTest:32 - Init page
+20:10:19 INFO  TestListner:17 - Test  /singIn/ is start. 
+20:10:19 INFO  BaseTest:39 - Sing In Test
+20:10:20 INFO  LogInForm:24 - Logging In.
+20:10:22 INFO  HeaderBlock:32 - Checking that Sing In is Success
+20:10:22 INFO  WaitUtil:21 - ▼ Wait until an element is visible
+20:10:23 INFO  TestListner:22 - Test  /singIn/ is success. 
+20:10:23 INFO  TestListner:17 - Test  /createEmailTest/ is start. 
+20:10:23 INFO  BaseTest:51 - Create New Email Test
+20:10:23 INFO  HeaderBlock:38 - Opening a new Email form
+20:10:24 INFO  EmailFormBlock:86 - Waiting for a new email form opened. 
+20:10:24 INFO  WaitUtil:21 - ▼ Wait until an element is visible
+20:10:25 INFO  YandexMailPage:63 - Saving email as a draft.
+20:10:25 INFO  WaitUtil:21 - ▼ Wait until an element is visible
+20:10:25 INFO  YandexMailPage:70 - Open draft folder. 
+20:10:32 INFO  TestListner:22 - Test  /createEmailTest/ is success. 
+20:10:32 INFO  TestListner:17 - Test  /emailVerificationTest/ is start. 
+20:10:32 INFO  BaseTest:70 - Email Verification Test
+20:10:32 INFO  EmailListBlock:49 - Opening an email.
+20:10:32 INFO  EmailFormBlock:86 - Waiting for a new email form opened. 
+20:10:32 INFO  WaitUtil:21 - ▼ Wait until an element is visible
+20:10:32 INFO  TestListner:22 - Test  /emailVerificationTest/ is success. 
+20:10:32 INFO  TestListner:17 - Test  /sendingEmailTest/ is start. 
+20:10:32 INFO  BaseTest:88 - Sending Email Test
+20:10:32 INFO  EmailFormBlock:80 - Sending an email. 
+20:10:32 INFO  YandexMailPage:70 - Open draft folder. 
+20:10:39 INFO  YandexMailPage:76 - Open sent folder. 
+20:10:45 INFO  HeaderBlock:44 - Opening a user settings
+20:10:45 DEBUG UserSettingsPopUpForm:27 - Waiting for Log out is visible.
+20:10:45 INFO  WaitUtil:21 - ▼ Wait until an element is visible
+20:10:47 DEBUG YandexMainPage:47 - Checking that submit button is visible. 
+20:10:47 INFO  TestListner:22 - Test  /sendingEmailTest/ is success. 
+20:10:48 INFO  BaseTest:34 - AfterClass: close browser
+20:10:48 INFO  TestListner:50 - Test finished at Sun Mar 04 20:10:48 MSK 2018

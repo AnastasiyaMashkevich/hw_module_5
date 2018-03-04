@@ -4,12 +4,14 @@ import com.epam.yandex.pageobjects.pages.BasePage;
 import com.epam.yandex.uitests.constant.ProjectConstant;
 import com.epam.yandex.utils.WaitUtil;
 import com.epam.yandex.utils.JSCommandsHelper;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class EmailFormBlock extends BasePage {
+	private static Logger log = Logger.getLogger(EmailFormBlock.class);
 
 	public EmailFormBlock(WebDriver driver) {
 		super(driver);
@@ -38,18 +40,22 @@ public class EmailFormBlock extends BasePage {
 	private WebElement sendEmailBtn;
 
 	public boolean isOpened() {
+		JSCommandsHelper.highlightElement(sendEmailBtn, driver);
 		return sendEmailBtn.isDisplayed();
 	}
 
 	public void setEmailSubject(String subject) {
+		JSCommandsHelper.highlightElement(emailSubject, driver);
 		emailSubject.sendKeys(subject);
 	}
 
 	public void setEmailBody(String body) {
+		JSCommandsHelper.highlightElement(emailBody, driver);
 		emailBody.sendKeys(body);
 	}
 
 	public void clickCloseEmail(){
+		JSCommandsHelper.highlightElement(closeEmail, driver);
 		closeEmail.click();
 	}
 
@@ -62,6 +68,7 @@ public class EmailFormBlock extends BasePage {
 	}
 
 	public String getAddresseeEmail() {
+		JSCommandsHelper.highlightElement(addresseeEmail, driver);
 		return addresseeEmail.getText();
 	}
 
@@ -70,10 +77,13 @@ public class EmailFormBlock extends BasePage {
 	}
 
 	public void clickSendEmail() {
+		log.info("Sending an email. ");
+		JSCommandsHelper.highlightElement(sendEmailBtn, driver);
 		sendEmailBtn.click();
 	}
 
 	public void waitForNewEmailFormIsOpened() {
+		log.info("Waiting for a new email form opened. ");
 		WaitUtil.waitForElementIsDisplayed(driver, sendEmailBtn, ProjectConstant.TimeConstant.TIME_20_SEC);
 	}
 }

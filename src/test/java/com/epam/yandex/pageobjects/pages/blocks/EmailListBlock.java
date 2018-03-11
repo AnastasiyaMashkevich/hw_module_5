@@ -51,14 +51,6 @@ public class EmailListBlock extends BasePage {
 		emailList.get(index).click();
 	}
 
-	public int getDraftEmailNumber() {
-		return getSubjectList().size();
-	}
-
-	public int getSentEmailNumber() {
-		return getSubjectList().size();
-	}
-
 	public boolean isEmailExist(String query) {
 		return getSubjectList().contains(query);
 	}

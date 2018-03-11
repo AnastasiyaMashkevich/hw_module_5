@@ -1,5 +1,6 @@
 package com.epam.yandex.common.driver.driverfactory;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -7,9 +8,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 
-
 public class ChromeDriver implements DriverCreator {
 
+	private static Logger log = Logger.getLogger(ChromeDriver.class);
 	private static WebDriver driver;
 
 	private static final String WEBDRIVER_CHROME = "webdriver.chrome.driver";
@@ -25,7 +26,7 @@ public class ChromeDriver implements DriverCreator {
 		try {
 			driver = new RemoteWebDriver(new URL(LOCALHOST), capability);
 		} catch (Exception e) {
-			System.out.println("Web Driver was not created.");
+			log.info("Web Driver was not created.");
 			e.printStackTrace();
 		}
 		return driver;

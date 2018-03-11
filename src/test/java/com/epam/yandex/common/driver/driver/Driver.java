@@ -1,5 +1,6 @@
 package com.epam.yandex.common.driver.driver;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,8 @@ import java.util.Set;
 
 public class Driver implements WebDriver {
 
+	private static Logger log = Logger.getLogger(Driver.class);
+
 	private WebDriver driver;
 
 	public Driver(WebDriver driver) {
@@ -16,7 +19,7 @@ public class Driver implements WebDriver {
 	}
 
 	public void get(String url) {
-		System.out.println("Browser goes to " + url);
+		log.info("Browser goes to " + url);
 		driver.get(url);
 	}
 
@@ -37,7 +40,7 @@ public class Driver implements WebDriver {
 	}
 
 	public String getPageSource() {
-		System.out.println("Browser gets page source.");
+		log.info("Browser gets page source.");
 		return driver.getPageSource();
 	}
 
@@ -46,7 +49,7 @@ public class Driver implements WebDriver {
 	}
 
 	public void quit() {
-		System.out.println("Browser will be closed.");
+		log.info("Browser will be closed.");
 		driver.quit();
 	}
 

@@ -1,6 +1,5 @@
 package com.epam.yandex.uitests.tests;
 
-import com.beust.jcommander.Parameter;
 import com.epam.yandex.common.driver.driverfactory.DriverFactory;
 import com.epam.yandex.model.User;
 import com.epam.yandex.service.UserService;

@@ -73,6 +73,7 @@ public class EmailFormBlock extends BasePage {
 	}
 
 	public void setAddresseeEmail(String email) {
+		JSCommandsHelper.highlightElement(addresseeEmailField, driver);
 		addresseeEmailField.sendKeys(email);
 	}
 
